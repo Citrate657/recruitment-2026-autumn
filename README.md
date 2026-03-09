@@ -29,7 +29,7 @@ $$y[n] = \frac{\text{pcm}[n]}{32768}$$
 
 $$\text{n\_frames} = 1 + \left\lfloor \frac{N - \text{n\_fft}}{\text{hop\_length}} \right\rfloor$$
 
-其中$N$是总样本数。帧$t$包含样本$y[t \cdot \text{hop\_length} \;:\; t \cdot \text{hop\_length} + \text{n\_fft}]$。
+其中$$N$$是总样本数。帧$$t$$包含样本$$y[t \cdot \text{hop\_length} \;:\; t \cdot \text{hop\_length} + \text{n\_fft}]$$。
 
 - **步骤3：加窗**
 
@@ -60,7 +60,7 @@ $$f(\text{mel}) = 700 \cdot \left(10^{\text{mel}/2595} - 1\right)$$
 构造：
 1. 计算`n_mels + 2`个在`mel(f_min)`和`mel(f_max)`之间线性分布的Mel点
 2. 转换回Hz得到滤波器中心频率
-3. 对于每个滤波器$m$，边缘为$(f_l, f_c, f_r)$，在FFT箱频率$f$处的响应为：
+3. 对于每个滤波器$$m$$，边缘为$$(f_l, f_c, f_r)$$，在FFT箱频率$$f$$处的响应为：
 
 $$H_m(f) = \max\!\left(0,\; \min\!\left(\frac{f - f_l}{f_c - f_l},\; \frac{f_r - f}{f_r - f_c}\right)\right)$$
 
@@ -175,6 +175,16 @@ make test
 
 ### 验证
 
+验证程序的运行需要`numpy`和`librosa`。
+如果使用我们的集群，我们在公用的环境中已经安装了这些库，请使用以下命令激活：
+
+```bash
+eval “$(/data/miniconda3/bin/conda shell.bash hook)”
+conda activate melspec
+```
+
+如果使用自己的环境，请确保安装了`numpy`和`librosa`。
+
 运行验证脚本来检查你的实现与真值输出的对比：
 
 ```bash
@@ -189,7 +199,9 @@ python validate.py ./melspec
 
 ### 参考实现
 
-除了C++实现，我们还提供了一个Python实现`melspec.py`，塔使用NumPy和SciPy来实现Mel谱图的计算，他的CLI接口与C++版本相同。
+除了C++实现，我们还提供了一个Python实现`melspec.py`，它使用NumPy和SciPy来实现Mel谱图的计算，它的CLI接口与C++版本相同。
+
+同样的，集群的公用环境中已经安装了这些库，请参照上面的命令激活，如果使用自己的环境，请确保安装了`numpy`和`scipy`。
 
 Python实现是为了帮助你理解算法细节，我们不建议你直接使用它来进行性能优化。C++实现则是一个相对朴素的版本，可能存在一些性能很低的地方，欢迎你在此基础上进行优化。
 
@@ -234,8 +246,6 @@ Python实现是为了帮助你理解算法细节，我们不建议你直接使�
 * 适量的 Cache 知识不仅对单核优化有用，也能避免一些多线程场景下的诡异问题：<https://zhuanlan.zhihu.com/p/136300660>
 * 更加系统性的高性能计算知识，请参考七边形的 HPC 学习路线：<https://heptagonhust.github.io/HPC-roadmap/>
 * Slurm 怎么用: <http://scc.ustc.edu.cn/zlsc/user_doc/html/slurm/index.html>
-* 什么是 GMRES 算法: <https://en.wikipedia.org/wiki/Generalized_minimal_residual_method>
-
 
 以及一些技术无关的提示：
 
