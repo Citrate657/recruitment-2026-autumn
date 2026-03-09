@@ -1,0 +1,4 @@
+*.out
+*.err
+melspec
+src/*.o
