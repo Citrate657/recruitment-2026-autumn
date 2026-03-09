@@ -27,15 +27,15 @@ $$y[n] = \frac{\text{pcm}[n]}{32768}$$
 
 将信号分成重叠帧，长度为`n_fft`，连续帧起始之间的`hop_length`个样本。**不进行零填充**（center=False）：
 
-$$\text{n\_frames} = 1 + \left\lfloor \frac{N - \text{n\_fft}}{\text{hop\_length}} \right\rfloor$$
+$$\text{n\\_frames} = 1 + \left\lfloor \frac{N - \text{n\\_fft}}{\text{hop\\_length}} \right\rfloor$$
 
-其中$$N$$是总样本数。帧$$t$$包含样本$$y[t \cdot \text{hop\_length} \;:\; t \cdot \text{hop\_length} + \text{n\_fft}]$$。
+其中 $N$ 是总样本数。帧 $t$ 包含样本 $y[t \cdot \text{hop\\_length} : t \cdot \text{hop\\_length} + \text{n\\_fft}]$ 。
 
 - **步骤3：加窗**
 
 对每个帧应用**周期性Hann窗口**：
 
-$$w[n] = 0.5 - 0.5 \cos\!\left(\frac{2\pi n}{\text{n\_fft}}\right), \quad n = 0, 1, \ldots, \text{n\_fft} - 1$$
+$$w[n] = 0.5 - 0.5 \cos\left(\frac{2\pi n}{\text{n\\_fft}}\right), \quad n = 0, 1, \ldots, \text{n\\_fft} - 1$$
 
 > 重要：这是*周期性*形式（周期 = `n_fft`），不是对称形式（分母为`n_fft - 1`）。在scipy中：`scipy.signal.get_window('hann', n_fft, fftbins=True)`。
 
@@ -43,7 +43,7 @@ $$w[n] = 0.5 - 0.5 \cos\!\left(\frac{2\pi n}{\text{n\_fft}}\right), \quad n = 0,
 
 对每个窗口帧计算实值FFT，然后取平方幅度：
 
-$$X[t, k] = \text{FFT}(\text{frame}_t \cdot w)[k], \quad k = 0, 1, \ldots, \text{n\_fft}/2$$
+$$X[t, k] = \text{FFT}(\text{frame}_t \cdot w)[k], \quad k = 0, 1, \ldots, \text{n\\_fft}/2$$
 
 $$S[k, t] = |X[t, k]|^2$$
 
@@ -60,9 +60,9 @@ $$f(\text{mel}) = 700 \cdot \left(10^{\text{mel}/2595} - 1\right)$$
 构造：
 1. 计算`n_mels + 2`个在`mel(f_min)`和`mel(f_max)`之间线性分布的Mel点
 2. 转换回Hz得到滤波器中心频率
-3. 对于每个滤波器$$m$$，边缘为$$(f_l, f_c, f_r)$$，在FFT箱频率$$f$$处的响应为：
+3. 对于每个滤波器 $m$ ，边缘为 $(f_l, f_c, f_r)$ ，在FFT箱频率 $f$ 处的响应为：
 
-$$H_m(f) = \max\!\left(0,\; \min\!\left(\frac{f - f_l}{f_c - f_l},\; \frac{f_r - f}{f_r - f_c}\right)\right)$$
+$$H_m(f) = \max\!\left(0, \min\!\left(\frac{f - f_l}{f_c - f_l}, \frac{f_r - f}{f_r - f_c}\right)\right)$$
 
 4. 应用*Slaney面积归一化* —— 用带宽除每个滤波器：
 
