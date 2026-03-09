@@ -1,7 +1,7 @@
 CXX_COMPLIER = g++
 CXX_FLAGS = -std=c++17 -Wall -Wextra -O2
 LINKER = g++
-LINKER_FLAGS = -lSDL2 -lSDL2_image
+LINKER_FLAGS = 
 INCLUDES = -I./include
 
 SRCS = $(wildcard src/*.cpp)

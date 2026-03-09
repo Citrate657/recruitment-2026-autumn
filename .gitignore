@@ -1,4 +1,3 @@
-*.out
-*.err
+logs/
 melspec
 src/*.o
