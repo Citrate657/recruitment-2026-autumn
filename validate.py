@@ -21,31 +21,31 @@ import numpy as np
 TEST_CASES = [
     {
         "name": "default",
-        "params": {"sr": 44100, "n_fft": 2048, "hop_length": 512,
-                   "n_mels": 128, "f_min": 0.0, "f_max": 22050.0},
+        "params": {"sr": 96000, "n_fft": 8192, "hop_length": 128,
+                   "n_mels": 256, "f_min": 0.0, "f_max": 22050.0},
         "expected": "data/expected/default.bin",
-        "shape": (128, 22099),
+        "shape": (256, 192397),
     },
     {
         "name": "small_mels",
-        "params": {"sr": 44100, "n_fft": 2048, "hop_length": 512,
-                   "n_mels": 32, "f_min": 0.0, "f_max": 22050.0},
+        "params": {"sr": 96000, "n_fft": 8192, "hop_length": 128,
+                   "n_mels": 64, "f_min": 0.0, "f_max": 22050.0},
         "expected": "data/expected/small_mels.bin",
-        "shape": (32, 22099),
+        "shape": (64, 192397),
     },
     {
         "name": "large_fft",
-        "params": {"sr": 44100, "n_fft": 4096, "hop_length": 512,
-                   "n_mels": 128, "f_min": 0.0, "f_max": 22050.0},
+        "params": {"sr": 96000, "n_fft": 16384, "hop_length": 128,
+                   "n_mels": 256, "f_min": 0.0, "f_max": 22050.0},
         "expected": "data/expected/large_fft.bin",
-        "shape": (128, 22095),
+        "shape": (256, 192333),
     },
     {
         "name": "narrow_band",
-        "params": {"sr": 44100, "n_fft": 2048, "hop_length": 512,
-                   "n_mels": 128, "f_min": 300.0, "f_max": 8000.0},
+        "params": {"sr": 96000, "n_fft": 16384, "hop_length": 128,
+                   "n_mels": 256, "f_min": 300.0, "f_max": 8000.0},
         "expected": "data/expected/narrow_band.bin",
-        "shape": (128, 22099),
+        "shape": (256, 192333),
     },
 ]
 
@@ -61,6 +61,7 @@ def build_args(params):
 def build_librosa_kwargs(params):
     """Convert params to librosa keyword arguments (fmin/fmax not f_min/f_max)."""
     return {
+        "sr": params["sr"],
         "n_fft": params["n_fft"],
         "hop_length": params["hop_length"],
         "n_mels": params["n_mels"],
@@ -115,7 +116,7 @@ def time_librosa(params, runs=3):
     times = []
     for _ in range(runs):
         t0 = time.perf_counter()
-        librosa.feature.melspectrogram(y=y, sr=44100, center=False, htk=True, **librosa_kwargs)
+        librosa.feature.melspectrogram(y=y, center=False, htk=True, **librosa_kwargs)
         t1 = time.perf_counter()
         times.append(t1 - t0)
 

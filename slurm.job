@@ -1,11 +1,10 @@
 #!/bin/bash
 #SBATCH -J Melspec
-#SBATCH -w hepnode[2-3]
+#SBATCH -w hepnode[1-3]
 #SBATCH -N 1
-#SBATCH -n 1
+#SBATCH -n 16
 #SBATCH --output=logs/%j.out
 #SBATCH --error=logs/%j.err
 
-eval "$(/data/miniconda3/bin/conda shell.bash hook)"
-conda activate melspec
+# active your env here
 make test

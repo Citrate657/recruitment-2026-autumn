@@ -1,7 +1,7 @@
 CXX_COMPLIER = g++
-CXX_FLAGS = -std=c++17 -Wall -Wextra -O2
+CXX_FLAGS = -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp
 LINKER = g++
-LINKER_FLAGS = 
+LINKER_FLAGS = -fopenmp
 INCLUDES = -I./include
 
 SRCS = $(wildcard src/*.cpp)
