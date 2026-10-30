@@ -1,3 +1,7 @@
 logs/
+docs/
 melspec
 src/*.o
+exp/*.o
+__pycache__/
+.vscode

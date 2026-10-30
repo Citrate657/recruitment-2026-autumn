@@ -1,0 +1,53 @@
+# Experiment Implementations
+
+`src/melspec.cpp` is the untouched reference implementation from the original
+repository. Experimental implementations live here as complete, compilable
+translation units rather than patches.
+
+## Naming
+
+Use a monotonically increasing prefix and a short change description:
+
+```text
+NNN_short_description.cpp
+```
+
+Examples:
+
+```text
+001_packed_fft_sparse_mel_simd.cpp
+002_avx512_fft.cpp
+003_cuda_cufft.cpp
+```
+
+Do not rewrite an experiment after it has been benchmarked and logged. Create
+the next numbered file instead, so source and measurements stay traceable.
+
+## Building
+
+Build the reference implementation:
+
+```bash
+make
+```
+
+Build a numbered experiment:
+
+```bash
+make EXPERIMENT=001_packed_fft_sparse_mel_simd
+```
+
+Run the validation target with the same selector:
+
+```bash
+make EXPERIMENT=001_packed_fft_sparse_mel_simd test
+```
+
+The executable is always `./melspec`, so the selected implementation should be
+recorded together with each benchmark log.
+
+## Current Experiments
+
+| ID | File | Summary |
+|---|---|---|
+| 001 | `001_packed_fft_sparse_mel_simd.cpp` | Precomputed packed real FFT, sparse Mel projection, tiled memory access, SIMD and OpenMP |

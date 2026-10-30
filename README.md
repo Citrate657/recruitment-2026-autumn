@@ -19,21 +19,21 @@ Mel谱图将原始音频波形转换为基于人耳感知（Mel尺度）频率�
 
 将输入文件读取为16位有符号整数（小端序）并归一化为浮点数：
 
-$$y[n] = \frac{\text{pcm}[n]}{32768}$$
+$$y[n] = \frac{\mathrm{pcm}[n]}{32768}$$
 
 - **步骤2：分帧**
 
 将信号分成重叠帧，长度为`n_fft`，连续帧起始之间的`hop_length`个样本。**不进行零填充**（center=False）：
 
-$$\text{n\\_frames} = 1 + \left\lfloor \frac{N - \text{n\\_fft}}{\text{hop\\_length}} \right\rfloor$$
+$$\mathrm{n\\_frames} = 1 + \left\lfloor \frac{N - \mathrm{n\\_fft}}{\mathrm{hop\\_length}} \right\rfloor$$
 
-其中 $N$ 是总样本数。帧 $t$ 包含样本 $y[t \cdot \text{hop\\_length} : t \cdot \text{hop\\_length} + \text{n\\_fft}]$ 。
+其中 $N$ 是总样本数。帧 $t$ 包含样本 $y[t \cdot \mathrm{hop\\_length} : t \cdot \mathrm{hop\\_length} + \mathrm{n\\_fft}]$ 。
 
 - **步骤3：加窗**
 
 对每个帧应用**周期性Hann窗口**：
 
-$$w[n] = 0.5 - 0.5 \cos\left(\frac{2\pi n}{\text{n\\_fft}}\right), \quad n = 0, 1, \ldots, \text{n\\_fft} - 1$$
+$$w[n] = 0.5 - 0.5 \cos\left(\frac{2\pi n}{\mathrm{n\\_fft}}\right), \quad n = 0, 1, \ldots, \mathrm{n\\_fft} - 1$$
 
 > 重要：这是*周期性*形式（周期 = `n_fft`），不是对称形式（分母为`n_fft - 1`）。在scipy中：`scipy.signal.get_window('hann', n_fft, fftbins=True)`。
 
@@ -41,7 +41,7 @@ $$w[n] = 0.5 - 0.5 \cos\left(\frac{2\pi n}{\text{n\\_fft}}\right), \quad n = 0, 
 
 对每个窗口帧计算实值FFT，然后取平方幅度：
 
-$$X[t, k] = \text{FFT}(\text{frame}_t \cdot w)[k], \quad k = 0, 1, \ldots, \text{n\\_fft}/2$$
+$$X[t, k] = \mathrm{FFT}(\mathrm{frame}_t \cdot w)[k], \quad k = 0, 1, \ldots, \mathrm{n\\_fft}/2$$
 
 $$S[k, t] = |X[t, k]|^2$$
 
@@ -51,9 +51,9 @@ $$S[k, t] = |X[t, k]|^2$$
 
 构建`n_mels`个三角滤波器的组，在HTK Mel尺度上均匀分布：
 
-$$\text{mel}(f) = 2595 \cdot \log_{10}\!\left(1 + \frac{f}{700}\right)$$
+$$\mathrm{mel}(f) = 2595 \cdot \log_{10}\!\left(1 + \frac{f}{700}\right)$$
 
-$$f(\text{mel}) = 700 \cdot \left(10^{\text{mel}/2595} - 1\right)$$
+$$f(\mathrm{mel}) = 700 \cdot \left(10^{\mathrm{mel}/2595} - 1\right)$$
 
 构造：
 1. 计算`n_mels + 2`个在`mel(f_min)`和`mel(f_max)`之间线性分布的Mel点
