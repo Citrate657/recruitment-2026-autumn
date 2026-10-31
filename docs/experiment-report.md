@@ -718,6 +718,31 @@ State: COMPLETED
 Log: logs/006_multi_node_gpu_only_slurm-410.log
 ```
 
+### 9.3 GPU 效率分析
+
+exp006 的 default profile 给出两个 rank 的阶段耗时：
+
+| 阶段 | rank 0 | rank 1 |
+|---|---:|---:|
+| 本地 PCM 读取 | 0.093 s | 0.093 s |
+| CUDA 初始化、plan 和 buffer 准备 | 0.060 s | 0.056 s |
+| GPU 路径，含 H2D、kernel、D2H 和同步 | 0.161 s | 0.233 s |
+| 共享输出写入 | 0.280 s | 0.489 s |
+
+这里的瓶颈不是磁盘输入。每个 rank 的 PCM 读取都只有约 0.093 s；更主要的
+成本来自：
+
+1. CUDA context、显存分配和 cuFFT plan 的固定启动费用；
+2. host/device 数据搬运，以及 pageable 输出缓冲区的额外 staging；
+3. 每处理最多 1024 帧就调用一次 `cudaStreamSynchronize`。default 中每个
+   rank 约执行 94 次同步，导致下一批计算无法和上一批 D2H 重叠；
+4. 两个 rank 最终向共享文件系统写入接近 188 MiB 的完整 default 输出。
+
+因此，更准确的表述是：**GPU 算术并不是主要瓶颈，端到端效率主要损失在
+数据搬运、同步和输出 I/O**。当前 profile 下 rank 1 的输出写入约占总 stage
+时间的 49%，而输入读取只占约 9%。若继续优化 GPU，应优先使用 pinned
+buffer、双缓冲和异步 D2H，并把下一 tile 的计算与上一 tile 的写出重叠。
+
 ## 10. 实验 007：单节点分阶段 profiling
 
 实验 007 包装未修改的 exp001 kernel，把单节点 default 拆成四个阶段：

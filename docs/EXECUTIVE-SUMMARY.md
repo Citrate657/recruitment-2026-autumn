@@ -85,7 +85,7 @@ b71de64 feat: add two-node GPU-only exp006
 
 ## 汇报材料
 
-- `output/melspec-review-20261031-final-v4.pptx`：16 页可编辑技术复盘 PPT
+- `output/melspec-review-20261031-final-v5.pptx`：17 页可编辑技术复盘 PPT
 - `docs/presentation-script.md`：逐页讲法、汇报节奏与 Q&A 速查
 - `docs/references-and-ai.md`：参考来源、AI 工具说明和典型 bug
 - PPT 内每页均含 speaker notes，并记录对应的实验报告或 Slurm 日志来源
