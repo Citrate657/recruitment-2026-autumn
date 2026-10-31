@@ -1,0 +1,52 @@
+Experiment: 001_packed_fft_sparse_mel_simd
+Git revision: not-a-git-checkout
+Slurm job: 187
+Node: hepnode2
+OpenMP threads: 16
+Python: Python 3.13.18
+Compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+rm -f  melspec
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/main.o -c src/main.cpp
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/melspec.o -c src/melspec.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -fopenmp -o melspec src/main.o src/melspec.o
+rm -f src/main.o src/melspec.o melspec
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/main.o -c src/main.cpp
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o exp/001_packed_fft_sparse_mel_simd.o -c exp/001_packed_fft_sparse_mel_simd.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -fopenmp -o melspec src/main.o exp/001_packed_fft_sparse_mel_simd.o
+
+[OFFICIAL FULL VALIDATION]
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.509 |  8.925x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    1.128 | 11.767x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    2.550 | 13.311x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    2.385 | 14.984x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
+
+[ONE-MILLION-SAMPLE SPEEDUP]
+Benchmarking default...
+
+| Case | Baseline (s) | Experiment (s) | Speedup | Max abs error | Status |
+|---|---:|---:|---:|---:|---|
+| default | 61.662986 | 0.084331 | 731.206x | N/A | N/A |

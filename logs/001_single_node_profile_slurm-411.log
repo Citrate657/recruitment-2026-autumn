@@ -1,0 +1,50 @@
+Experiment: 001 single-node stage profile
+Slurm job: 411
+Node: hepnode1
+OpenMP: 64/spread/cores
+Compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+rm -f src/main.o exp/001_packed_fft_sparse_mel_simd.o melspec
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/main.o -c src/main.cpp
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o exp/001_packed_fft_sparse_mel_simd.o -c exp/001_packed_fft_sparse_mel_simd.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -fopenmp -o melspec src/main.o exp/001_packed_fft_sparse_mel_simd.o
+
+[full output]
+run=1
+wall=0.97 user=17.27 sys=0.53 maxrss_kb=778412
+run=2
+wall=0.98 user=17.30 sys=0.55 maxrss_kb=778908
+run=3
+wall=0.99 user=18.66 sys=0.54 maxrss_kb=778412
+
+[output conversion without disk payload: /dev/null]
+run=1
+wall=0.91 user=18.62 sys=0.46 maxrss_kb=777760
+run=2
+wall=0.91 user=18.54 sys=0.45 maxrss_kb=778392
+run=3
+wall=0.90 user=18.34 sys=0.49 maxrss_kb=778460
+
+[perf counters]
+Error:
+No supported events found.
+Access to performance monitoring and observability operations is limited.
+Consider adjusting /proc/sys/kernel/perf_event_paranoid setting to open
+access to performance monitoring and observability operations for processes
+without CAP_PERFMON, CAP_SYS_PTRACE or CAP_SYS_ADMIN Linux capability.
+More information can be found at 'Perf events and tool security' document:
+https://www.kernel.org/doc/html/latest/admin-guide/perf-security.html
+perf_event_paranoid setting is 4:
+  -1: Allow use of (almost) all events by all users
+      Ignore mlock limit after perf_event_mlock_kb without CAP_IPC_LOCK
+>= 0: Disallow raw and ftrace function tracepoint access
+>= 1: Disallow CPU event access
+>= 2: Disallow kernel profiling
+To make the adjusted perf_event_paranoid setting permanent preserve it
+in /etc/sysctl.conf (e.g. kernel.perf_event_paranoid = <setting>)

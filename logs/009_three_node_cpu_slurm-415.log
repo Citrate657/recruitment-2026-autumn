@@ -1,0 +1,38 @@
+Experiment: 009 three-node CPU pipelined
+Slurm job: 415
+Nodes: hepnode[1-3]
+OpenMP: 64/spread/cores
+Compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+
+[default stage profile]
+run=1
+exp009_profile rank=0 read_io=0.021901 normalize=0.040827 compute_float=0.129450 distributed_write=0.278777 total=0.472003 local_frames=64133
+exp009_profile rank=2 read_io=0.025868 normalize=0.040577 compute_float=0.122878 distributed_write=0.381655 total=0.571961 local_frames=64132
+exp009_profile rank=1 read_io=0.026765 normalize=0.040670 compute_float=0.124311 distributed_write=0.379951 total=0.572584 local_frames=64132
+wall=0.78 user=0.02 sys=0.03 maxrss_kb=8920
+run=2
+exp009_profile rank=1 read_io=0.021246 normalize=0.039521 compute_float=0.132253 distributed_write=0.286873 total=0.480871 local_frames=64132
+exp009_profile rank=0 read_io=0.018578 normalize=0.041755 compute_float=0.131602 distributed_write=0.284038 total=0.476955 local_frames=64133
+exp009_profile rank=2 read_io=0.018937 normalize=0.042343 compute_float=0.124492 distributed_write=0.304597 total=0.491376 local_frames=64132
+wall=0.59 user=0.01 sys=0.03 maxrss_kb=8932
+run=3
+exp009_profile rank=0 read_io=0.019522 normalize=0.040170 compute_float=0.127458 distributed_write=0.281182 total=0.469299 local_frames=64133
+exp009_profile rank=2 read_io=0.018740 normalize=0.039569 compute_float=0.137683 distributed_write=0.279544 total=0.476373 local_frames=64132
+exp009_profile rank=1 read_io=0.021191 normalize=0.043014 compute_float=0.142117 distributed_write=0.285219 total=0.492295 local_frames=64132
+wall=0.60 user=0.02 sys=0.04 maxrss_kb=8912
+
+[official validation]
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.599 | 23.087x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.275 | 49.904x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.661 | 48.738x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    0.651 | 51.532x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

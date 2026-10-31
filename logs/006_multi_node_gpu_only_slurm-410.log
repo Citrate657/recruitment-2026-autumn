@@ -1,0 +1,42 @@
+Experiment: 006 two-node GPU-only
+Slurm job: 410
+Requested nodes: hepnode[1-2]
+Ranks: 2, tasks per node: 1
+CPU frame percentage: 0
+Compiled source: exp/006_multi_node_gpu_only.cu
+
+[allocated GPU resources]
+node=hepnode1
+node=hepnode2
+GPU 0: NVIDIA L40 (UUID: GPU-0730ed35-6381-d345-7136-78ef81280467)
+GPU 1: NVIDIA L40 (UUID: GPU-d82e29c1-99f7-3232-fab1-99c5b1de8608)
+GPU 0: NVIDIA L40 (UUID: GPU-00ddb077-b630-f2cb-af67-0452ec98b629)
+GPU 1: NVIDIA L40 (UUID: GPU-d7d7a299-58cc-19ac-ec26-477111aac815)
+
+[compile]
+
+[default profile]
+exp006_resource rank=0 device=0 gpu=NVIDIA L40
+exp006_resource rank=0 device=1 gpu=NVIDIA L40
+exp006_resource rank=1 device=0 gpu=NVIDIA L40
+exp006_resource rank=1 device=1 gpu=NVIDIA L40
+exp006_profile rank=0 driver_read=0.093340 setup=0.060134 gpu_compute=0.160755 distributed_write=0.280446 local_frames=96199
+exp006_profile rank=1 driver_read=0.093009 setup=0.056412 gpu_compute=0.233301 distributed_write=0.489442 local_frames=96198
+wall=1.61
+lrwxrwxrwx+ 1 wzt recruitment 56 Oct 31 08:08 /tmp/exp006_profile.bin -> /home/wzt/melspec-eval-001/shared_tmp/exp006_profile.bin
+
+[official validation]
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.068 | 13.826x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.729 | 18.738x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.113 | 30.276x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.114 | 30.369x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

@@ -1,0 +1,209 @@
+Experiment: 001_packed_fft_sparse_mel_simd
+Slurm job: 275
+Node: hepnode2
+Allocated CPUs: 64
+Compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+Architecture:                            x86_64
+CPU(s):                                  64
+Model name:                              Intel(R) Xeon(R) Gold 6338 CPU @ 2.00GHz
+Thread(s) per core:                      1
+Core(s) per socket:                      32
+Socket(s):                               2
+CPU(s) scaling MHz:                      33%
+NUMA node(s):                            4
+NUMA node0 CPU(s):                       0-15
+NUMA node1 CPU(s):                       16-31
+NUMA node2 CPU(s):                       32-47
+NUMA node3 CPU(s):                       48-63
+rm -f src/main.o exp/001_packed_fft_sparse_mel_simd.o melspec
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/main.o -c src/main.cpp
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o exp/001_packed_fft_sparse_mel_simd.o -c exp/001_packed_fft_sparse_mel_simd.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -fopenmp -o melspec src/main.o exp/001_packed_fft_sparse_mel_simd.o
+default      binding=close  threads= 1 time=12.971318s
+default      binding=close  threads= 2 time=6.993382s
+default      binding=close  threads= 4 time=3.850109s
+default      binding=close  threads= 8 time=2.275252s
+default      binding=close  threads=12 time=1.880939s
+default      binding=close  threads=16 time=1.450274s
+default      binding=close  threads=24 time=1.210183s
+default      binding=close  threads=32 time=1.072880s
+default      binding=close  threads=40 time=1.047726s
+default      binding=close  threads=48 time=1.011286s
+default      binding=close  threads=56 time=0.965940s
+default      binding=close  threads=64 time=0.917754s
+default      binding=spread threads= 1 time=13.000913s
+default      binding=spread threads= 2 time=7.152896s
+default      binding=spread threads= 4 time=3.985831s
+default      binding=spread threads= 8 time=2.355452s
+default      binding=spread threads=12 time=1.838292s
+default      binding=spread threads=16 time=1.484455s
+default      binding=spread threads=24 time=1.252698s
+default      binding=spread threads=32 time=1.089955s
+default      binding=spread threads=40 time=1.052751s
+default      binding=spread threads=48 time=1.010669s
+default      binding=spread threads=56 time=0.960138s
+default      binding=spread threads=64 time=0.931402s
+small_mels   binding=close  threads= 1 time=12.501842s
+small_mels   binding=close  threads= 2 time=6.478218s
+small_mels   binding=close  threads= 4 time=3.405602s
+small_mels   binding=close  threads= 8 time=1.891301s
+small_mels   binding=close  threads=12 time=1.410029s
+small_mels   binding=close  threads=16 time=1.099582s
+small_mels   binding=close  threads=24 time=0.869303s
+small_mels   binding=close  threads=32 time=0.724286s
+small_mels   binding=close  threads=40 time=0.701898s
+small_mels   binding=close  threads=48 time=0.652925s
+small_mels   binding=close  threads=56 time=0.723963s
+small_mels   binding=close  threads=64 time=0.613656s
+small_mels   binding=spread threads= 1 time=12.548643s
+small_mels   binding=spread threads= 2 time=6.547745s
+small_mels   binding=spread threads= 4 time=3.477387s
+small_mels   binding=spread threads= 8 time=1.932283s
+small_mels   binding=spread threads=12 time=1.437846s
+small_mels   binding=spread threads=16 time=1.117959s
+small_mels   binding=spread threads=24 time=0.883347s
+small_mels   binding=spread threads=32 time=0.751527s
+small_mels   binding=spread threads=40 time=0.770016s
+small_mels   binding=spread threads=48 time=0.647584s
+small_mels   binding=spread threads=56 time=0.598644s
+small_mels   binding=spread threads=64 time=0.568764s
+large_fft    binding=close  threads= 1 time=27.890451s
+large_fft    binding=close  threads= 2 time=14.477115s
+large_fft    binding=close  threads= 4 time=7.606675s
+large_fft    binding=close  threads= 8 time=4.125974s
+large_fft    binding=close  threads=12 time=3.033861s
+large_fft    binding=close  threads=16 time=2.423317s
+large_fft    binding=close  threads=24 time=2.275915s
+large_fft    binding=close  threads=32 time=1.658586s
+large_fft    binding=close  threads=40 time=1.553326s
+large_fft    binding=close  threads=48 time=1.339155s
+large_fft    binding=close  threads=56 time=1.322726s
+large_fft    binding=close  threads=64 time=1.150817s
+large_fft    binding=spread threads= 1 time=27.764726s
+large_fft    binding=spread threads= 2 time=14.603013s
+large_fft    binding=spread threads= 4 time=7.634952s
+large_fft    binding=spread threads= 8 time=4.262344s
+large_fft    binding=spread threads=12 time=3.084384s
+large_fft    binding=spread threads=16 time=2.439649s
+large_fft    binding=spread threads=24 time=1.909815s
+large_fft    binding=spread threads=32 time=1.577541s
+large_fft    binding=spread threads=40 time=1.452959s
+large_fft    binding=spread threads=48 time=1.343099s
+large_fft    binding=spread threads=56 time=1.277842s
+large_fft    binding=spread threads=64 time=1.154967s
+narrow_band  binding=close  threads= 1 time=25.565747s
+narrow_band  binding=close  threads= 2 time=13.560211s
+narrow_band  binding=close  threads= 4 time=7.062647s
+narrow_band  binding=close  threads= 8 time=3.887450s
+narrow_band  binding=close  threads=12 time=2.939069s
+narrow_band  binding=close  threads=16 time=2.925320s
+narrow_band  binding=close  threads=24 time=2.072753s
+narrow_band  binding=close  threads=32 time=1.792244s
+narrow_band  binding=close  threads=40 time=1.416756s
+narrow_band  binding=close  threads=48 time=1.305734s
+narrow_band  binding=close  threads=56 time=1.210269s
+narrow_band  binding=close  threads=64 time=1.280065s
+narrow_band  binding=spread threads= 1 time=25.805567s
+narrow_band  binding=spread threads= 2 time=14.071354s
+narrow_band  binding=spread threads= 4 time=7.213800s
+narrow_band  binding=spread threads= 8 time=4.030453s
+narrow_band  binding=spread threads=12 time=2.954216s
+narrow_band  binding=spread threads=16 time=2.372999s
+narrow_band  binding=spread threads=24 time=1.872334s
+narrow_band  binding=spread threads=32 time=1.829353s
+narrow_band  binding=spread threads=40 time=1.441881s
+narrow_band  binding=spread threads=48 time=1.305619s
+narrow_band  binding=spread threads=56 time=1.204949s
+narrow_band  binding=spread threads=64 time=1.121692s
+
+### default
+
+| Threads | Close | Spread | Fastest binding |
+|---:|---:|---:|---|
+| 1 | 12.971318 | 13.000913 | close |
+| 2 | 6.993382 | 7.152896 | close |
+| 4 | 3.850109 | 3.985831 | close |
+| 8 | 2.275252 | 2.355452 | close |
+| 12 | 1.880939 | 1.838292 | spread |
+| 16 | 1.450274 | 1.484455 | close |
+| 24 | 1.210183 | 1.252698 | close |
+| 32 | 1.072880 | 1.089955 | close |
+| 40 | 1.047726 | 1.052751 | close |
+| 48 | 1.011286 | 1.010669 | spread |
+| 56 | 0.965940 | 0.960138 | spread |
+| 64 | 0.917754 | 0.931402 | close |
+
+### small_mels
+
+| Threads | Close | Spread | Fastest binding |
+|---:|---:|---:|---|
+| 1 | 12.501842 | 12.548643 | close |
+| 2 | 6.478218 | 6.547745 | close |
+| 4 | 3.405602 | 3.477387 | close |
+| 8 | 1.891301 | 1.932283 | close |
+| 12 | 1.410029 | 1.437846 | close |
+| 16 | 1.099582 | 1.117959 | close |
+| 24 | 0.869303 | 0.883347 | close |
+| 32 | 0.724286 | 0.751527 | close |
+| 40 | 0.701898 | 0.770016 | close |
+| 48 | 0.652925 | 0.647584 | spread |
+| 56 | 0.723963 | 0.598644 | spread |
+| 64 | 0.613656 | 0.568764 | spread |
+
+### large_fft
+
+| Threads | Close | Spread | Fastest binding |
+|---:|---:|---:|---|
+| 1 | 27.890451 | 27.764726 | spread |
+| 2 | 14.477115 | 14.603013 | close |
+| 4 | 7.606675 | 7.634952 | close |
+| 8 | 4.125974 | 4.262344 | close |
+| 12 | 3.033861 | 3.084384 | close |
+| 16 | 2.423317 | 2.439649 | close |
+| 24 | 2.275915 | 1.909815 | spread |
+| 32 | 1.658586 | 1.577541 | spread |
+| 40 | 1.553326 | 1.452959 | spread |
+| 48 | 1.339155 | 1.343099 | close |
+| 56 | 1.322726 | 1.277842 | spread |
+| 64 | 1.150817 | 1.154967 | close |
+
+### narrow_band
+
+| Threads | Close | Spread | Fastest binding |
+|---:|---:|---:|---|
+| 1 | 25.565747 | 25.805567 | close |
+| 2 | 13.560211 | 14.071354 | close |
+| 4 | 7.062647 | 7.213800 | close |
+| 8 | 3.887450 | 4.030453 | close |
+| 12 | 2.939069 | 2.954216 | close |
+| 16 | 2.925320 | 2.372999 | spread |
+| 24 | 2.072753 | 1.872334 | spread |
+| 32 | 1.792244 | 1.829353 | close |
+| 40 | 1.416756 | 1.441881 | close |
+| 48 | 1.305734 | 1.305619 | spread |
+| 56 | 1.210269 | 1.204949 | spread |
+| 64 | 1.280065 | 1.121692 | spread |
+
+### Sum of four case minima
+
+| Threads | Close | Spread |
+|---:|---:|---:|
+| 1 | 78.929358 | 79.119848 |
+| 2 | 41.508926 | 42.375008 |
+| 4 | 21.925032 | 22.311969 |
+| 8 | 12.179977 | 12.580531 |
+| 12 | 9.263899 | 9.314738 |
+| 16 | 7.898493 | 7.415062 |
+| 24 | 6.428154 | 5.918194 |
+| 32 | 5.247995 | 5.248376 |
+| 40 | 4.719705 | 4.717607 |
+| 48 | 4.309100 | 4.306971 |
+| 56 | 4.222898 | 4.041572 |
+| 64 | 3.962291 | 3.776826 |

@@ -1,0 +1,107 @@
+# 提交说明
+
+本仓库完成了 2026 秋季招新题的 melspec 性能优化，并保留 CPU、GPU 和
+多节点方案的完整实现、Slurm 日志与实验报告。
+
+## 最终结果
+
+当前最快的正式实现是 `exp/009_three_node_cpu_pipelined.cpp`：
+
+| 用例 | 耗时 |
+|---|---:|
+| default | 0.599 s |
+| small_mels | 0.275 s |
+| large_fft | 0.661 s |
+| narrow_band | 0.651 s |
+| 合计 | **2.186 s** |
+
+job 415 在三节点 Slurm 环境通过官方 `4/4 PASS`。性能基线是 exp001 的
+64 线程 spread 结果 `3.777 s`，exp009 相对基线的聚合加速为 `1.728x`。
+
+机器可读结果见 [results/final-metrics.csv](results/final-metrics.csv)。
+
+## 推荐阅读
+
+| 文件 | 内容 |
+|---|---|
+| [docs/EXECUTIVE-SUMMARY.md](docs/EXECUTIVE-SUMMARY.md) | 结论、最终指标、关键发现和边界 |
+| [docs/experiment-report.md](docs/experiment-report.md) | 001–009 的实现与完整实验记录 |
+| [docs/presentation-script.md](docs/presentation-script.md) | 11 页逐页讲稿与常见问答 |
+| [exp/README.md](exp/README.md) | 实验源码与构建入口 |
+| [output/melspec-review-20261031.pptx](output/melspec-review-20261031.pptx) | 最终汇报 PPT |
+
+PPT 已通过 Artifact Tool finalizer 和重新导入渲染检查。由于当前环境没有
+Microsoft PowerPoint 自动化，未进行本机 PowerPoint 人工打开验证。
+
+## 仓库结构
+
+```text
+SUBMISSION.md                 提交入口
+README.md                     原始题目说明，顶部增加提交入口
+exp/                          按编号保存的完整实验实现
+scripts/                      Slurm 启动、调优和 profiling 脚本
+docs/                         实验报告、总结、讲稿和过程记录
+logs/                         远程 Slurm 原始输出
+results/                      最终结果的机器可读汇总
+output/                       最终汇报 PPT
+```
+
+`src/main.cpp`、`include/melspec.h`、`validate.py` 和 `melspec.py` 保持题目
+要求的接口与语义。
+
+## 快速检查
+
+本地检查题目源文件是否与 HEAD 一致：
+
+```bash
+git diff HEAD -- src/main.cpp include/melspec.h validate.py melspec.py
+```
+
+构建并验证 exp001：
+
+```bash
+make clean
+make EXPERIMENT=001_packed_fft_sparse_mel_simd -j64
+OMP_NUM_THREADS=64 \
+OMP_PROC_BIND=spread \
+OMP_PLACES=cores \
+python3 validate.py ./melspec --runs 3
+```
+
+构建并验证单节点 exp008：
+
+```bash
+g++ -std=c++17 -O3 -march=native -fopenmp -I./include \
+    exp/008_single_node_cpu_pipelined.cpp -o melspec_exp008
+
+OMP_NUM_THREADS=64 \
+OMP_PROC_BIND=spread \
+OMP_PLACES=cores \
+python3 validate.py ./melspec_exp008 --runs 3
+```
+
+三节点 exp009 通过 Slurm 复现：
+
+```bash
+sbatch scripts/run_exp009_slurm_fast_3node.slurm
+```
+
+题目要求计算只在 `hepnode1~3` 上通过 Slurm 执行，`hepnode0` 仅用于登录和
+作业管理。
+
+## 性能口径
+
+- 所有耗时单位为秒，来自官方四个用例三次运行中的最小值。
+- 统一基线为 exp001 的 64 线程 spread 结果，不使用早期 16 线程的
+  `7.572 s` 作为优化加速基准。
+- 正式正确性门限为 `rtol=1e-3`、`atol=1e-4`。
+- GPU 结果受 CUDA 驱动、cuFFT 和共享文件系统影响，不保证与日志逐位一致。
+
+## 关键提交
+
+```text
+b71de64 feat: add two-node GPU-only exp006
+5549edd feat: add pipelined CPU optimization tracks
+```
+
+未提交的 `.codex-build/` 是 PPT 私有构建缓存，不属于评审交付内容。

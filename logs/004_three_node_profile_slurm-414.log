@@ -1,0 +1,27 @@
+Experiment: 004 three-node profile
+Slurm job: 414
+Nodes: hepnode[1-3]
+OpenMP: 64/spread/cores
+
+[default stage profile]
+run=1
+mpi_profile driver_read=0.066760 pid=3229299
+mpi_profile mpi_init=0.000002
+mpi_profile driver_read=0.065395 pid=3008029
+mpi_profile driver_read=0.061489 pid=3409971
+mpi_profile compute=0.173913 distributed_write=0.272985
+wall=0.88 user=0.02 sys=0.03 maxrss_kb=8964
+run=2
+mpi_profile driver_read=0.064700 pid=3410054
+mpi_profile driver_read=0.066194 pid=3008113
+mpi_profile driver_read=0.067379 pid=3229401
+mpi_profile mpi_init=0.000002
+mpi_profile compute=0.173420 distributed_write=0.274907
+wall=0.73 user=0.01 sys=0.04 maxrss_kb=8924
+run=3
+mpi_profile driver_read=0.066051 pid=3008189
+mpi_profile driver_read=0.066987 pid=3229497
+mpi_profile mpi_init=0.000002
+mpi_profile driver_read=0.063509 pid=3410132
+mpi_profile compute=0.171312 distributed_write=0.276314
+wall=0.69 user=0.01 sys=0.04 maxrss_kb=8832

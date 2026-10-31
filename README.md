@@ -1,5 +1,9 @@
 # 七边形 2026 年秋季招新题目！
 
+> **提交入口**：实现与性能总结见 [SUBMISSION.md](SUBMISSION.md)，完整实验记录见
+> [docs/experiment-report.md](docs/experiment-report.md)，最终汇报 PPT 位于
+> [output/melspec-review-20261031.pptx](output/melspec-review-20261031.pptx)。
+
 嗨，欢迎来做七边形的招新题！
 
 招新题是一个C++ 小项目，使用 Make 构建。你需要对这个项目做你能想到的性能优化，使其在保持正确性的前提下，跑得尽可能快。

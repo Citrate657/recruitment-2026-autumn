@@ -1,0 +1,40 @@
+Experiment: 004 native Slurm multi-process
+Slurm job: 338
+Nodes: hepnode[2-3]
+
+[direct default debug]
+run=1
+mpi_profile driver_read=0.090972 pid=3360341
+mpi_profile driver_read=0.095297 pid=2952395
+mpi_profile mpi_init=0.000002
+mpi_profile compute=0.306883 distributed_write=0.283068
+wall=1.09
+run=2
+mpi_profile driver_read=0.094218 pid=2952492
+mpi_profile mpi_init=0.000002
+mpi_profile driver_read=0.091931 pid=3360466
+mpi_profile compute=0.238295 distributed_write=0.280139
+wall=0.82
+run=3
+mpi_profile driver_read=0.094110 pid=3360545
+mpi_profile driver_read=0.093192 pid=2952588
+mpi_profile mpi_init=0.000002
+mpi_profile compute=0.242869 distributed_write=0.276525
+wall=0.87
+lrwxrwxrwx+ 1 wzt recruitment 52 Oct 31 02:01 /tmp/fast_debug.bin -> /home/wzt/melspec-eval-001/shared_tmp/fast_debug.bin
+
+[official validation]
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.818 | 17.012x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.398 | 34.935x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.941 | 34.774x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    0.926 | 35.292x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

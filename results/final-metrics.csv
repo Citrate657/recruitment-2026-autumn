@@ -1,0 +1,9 @@
+experiment,config,job,default_s,small_mels_s,large_fft_s,narrow_band_s,total_s,speedup_vs_exp001_t64,status,log
+001,single-node 64-thread CPU spread,275,0.931402,0.568764,1.154967,1.121692,3.776825,1.000000,4/4 PASS,logs/cpu-thread-scaling_slurm-275.log
+002,single-node dual L40,292,1.341,0.925,1.444,1.454,5.164,0.731376,4/4 PASS,logs/002_gpu_cufft_slurm-292.log
+003,single-node CPU plus dual L40,347,1.353,0.929,1.474,1.451,5.207,0.725336,4/4 PASS,logs/003_cpu_gpu_heterogeneous_slurm-347.log
+004,three-node CPU,359,0.693,0.305,0.773,0.762,2.533,1.491047,4/4 PASS,logs/004_slurm_fast_3node_slurm-359.log
+005,two-node CPU plus dual L40,352,1.376,0.904,1.454,1.445,5.179,0.729258,4/4 PASS,logs/005_slurm_fast_2node_slurm-352.log
+006,two-node GPU-only,410,1.068,0.729,1.113,1.114,4.024,0.938575,4/4 PASS,logs/006_multi_node_gpu_only_slurm-410.log
+008,single-node CPU pipelined,413,0.629,0.470,0.827,0.807,2.733,1.381934,4/4 PASS,logs/008_single_node_cpu_slurm-413.log
+009,three-node CPU pipelined,415,0.599,0.275,0.661,0.651,2.186,1.727733,4/4 PASS,logs/009_three_node_cpu_slurm-415.log

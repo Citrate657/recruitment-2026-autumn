@@ -1,0 +1,78 @@
+Experiment: 005 native Slurm one-node
+Slurm job: 328
+GPU 0: NVIDIA L40 (UUID: GPU-00ddb077-b630-f2cb-af67-0452ec98b629)
+GPU 1: NVIDIA L40 (UUID: GPU-d7d7a299-58cc-19ac-ec26-477111aac815)
+exp/005_mpi_gpu_heterogeneous.cu(806): warning #174-D: expression has no effect
+      if (!mpi_initialized) 0;
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+exp/005_mpi_gpu_heterogeneous.cu(928): warning #174-D: expression has no effect
+          0;
+          ^
+
+exp/005_mpi_gpu_heterogeneous.cu(946): warning #174-D: expression has no effect
+      0
+      ^
+
+exp/005_mpi_gpu_heterogeneous.cu(987): warning #174-D: expression has no effect
+      0;
+      ^
+
+exp/005_mpi_gpu_heterogeneous.cu(1057): warning #174-D: expression has no effect
+          0;
+          ^
+
+exp/005_mpi_gpu_heterogeneous.cu(806): warning #174-D: expression has no effect
+      if (!mpi_initialized) 0;
+                            ^
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+exp/005_mpi_gpu_heterogeneous.cu(928): warning #174-D: expression has no effect
+          0;
+          ^
+
+exp/005_mpi_gpu_heterogeneous.cu(946): warning #174-D: expression has no effect
+      0
+      ^
+
+exp/005_mpi_gpu_heterogeneous.cu(987): warning #174-D: expression has no effect
+      0;
+      ^
+
+exp/005_mpi_gpu_heterogeneous.cu(945): warning #177-D: variable "local_slab_count" was declared but never referenced
+      const int local_slab_count = n_mels * local_frames;
+                ^
+
+exp/005_mpi_gpu_heterogeneous.cu(1057): warning #174-D: expression has no effect
+          0;
+          ^
+
+exp/005_mpi_gpu_heterogeneous.cu(35): warning #177-D: variable "MPI_COMM_WORLD" was declared but never referenced
+  constexpr int MPI_COMM_WORLD = 0;
+                ^
+
+exp/005_mpi_gpu_heterogeneous.cu(36): warning #177-D: variable "MPI_DOUBLE" was declared but never referenced
+  constexpr int MPI_DOUBLE = 0;
+                ^
+
+exp/005_mpi_gpu_heterogeneous.cu(37): warning #177-D: variable "MPI_FLOAT" was declared but never referenced
+  constexpr int MPI_FLOAT = 0;
+                ^
+
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.662 |  8.316x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    1.038 | 13.240x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.778 | 18.306x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.782 | 18.271x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

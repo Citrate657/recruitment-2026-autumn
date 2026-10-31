@@ -1,0 +1,88 @@
+Experiment: 003 CPU thread/share tuning
+Slurm job: 301
+Node: hepnode2
+GPUs: 0,1
+cpu_percent= 4 case=default      time=1.434769s
+cpu_percent= 4 case=small_mels   time=1.008233s
+cpu_percent= 4 case=large_fft    time=1.564608s
+cpu_percent= 4 case=narrow_band  time=1.579943s
+cpu_percent= 4 total=5.587553s
+cpu_percent= 8 case=default      time=1.430408s
+cpu_percent= 8 case=small_mels   time=1.070134s
+cpu_percent= 8 case=large_fft    time=1.738637s
+cpu_percent= 8 case=narrow_band  time=1.717044s
+cpu_percent= 8 total=5.956223s
+cpu_percent=12 case=default      time=1.504325s
+cpu_percent=12 case=small_mels   time=1.121200s
+cpu_percent=12 case=large_fft    time=1.971406s
+cpu_percent=12 case=narrow_band  time=1.858469s
+cpu_percent=12 total=6.455401s
+
+| CPU % | default | small_mels | large_fft | narrow_band | Total |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 1.434769 | 1.008233 | 1.564608 | 1.579943 | 5.587553 |
+| 8 | 1.430408 | 1.070134 | 1.738637 | 1.717044 | 5.956223 |
+| 12 | 1.504325 | 1.121200 | 1.971406 | 1.858469 | 6.455401 |
+cpu_percent= 4 case=default      time=1.355166s
+cpu_percent= 4 case=small_mels   time=0.963801s
+cpu_percent= 4 case=large_fft    time=1.521026s
+cpu_percent= 4 case=narrow_band  time=1.510555s
+cpu_percent= 4 total=5.350549s
+cpu_percent= 8 case=default      time=1.378194s
+cpu_percent= 8 case=small_mels   time=0.988995s
+cpu_percent= 8 case=large_fft    time=1.577098s
+cpu_percent= 8 case=narrow_band  time=1.556780s
+cpu_percent= 8 total=5.501067s
+cpu_percent=12 case=default      time=1.442093s
+cpu_percent=12 case=small_mels   time=1.015952s
+cpu_percent=12 case=large_fft    time=1.913318s
+cpu_percent=12 case=narrow_band  time=1.625697s
+cpu_percent=12 total=5.997060s
+
+| CPU % | default | small_mels | large_fft | narrow_band | Total |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 1.355166 | 0.963801 | 1.521026 | 1.510555 | 5.350549 |
+| 8 | 1.378194 | 0.988995 | 1.577098 | 1.556780 | 5.501067 |
+| 12 | 1.442093 | 1.015952 | 1.913318 | 1.625697 | 5.997060 |
+cpu_percent= 4 case=default      time=1.360761s
+cpu_percent= 4 case=small_mels   time=0.956650s
+cpu_percent= 4 case=large_fft    time=1.527966s
+cpu_percent= 4 case=narrow_band  time=1.474290s
+cpu_percent= 4 total=5.319666s
+cpu_percent= 8 case=default      time=1.360745s
+cpu_percent= 8 case=small_mels   time=0.986336s
+cpu_percent= 8 case=large_fft    time=1.526745s
+cpu_percent= 8 case=narrow_band  time=1.518024s
+cpu_percent= 8 total=5.391851s
+cpu_percent=12 case=default      time=1.399994s
+cpu_percent=12 case=small_mels   time=0.982632s
+cpu_percent=12 case=large_fft    time=1.615255s
+cpu_percent=12 case=narrow_band  time=1.608850s
+cpu_percent=12 total=5.606730s
+
+| CPU % | default | small_mels | large_fft | narrow_band | Total |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 1.360761 | 0.956650 | 1.527966 | 1.474290 | 5.319666 |
+| 8 | 1.360745 | 0.986336 | 1.526745 | 1.518024 | 5.391851 |
+| 12 | 1.399994 | 0.982632 | 1.615255 | 1.608850 | 5.606730 |
+cpu_percent= 4 case=default      time=1.323491s
+cpu_percent= 4 case=small_mels   time=0.952103s
+cpu_percent= 4 case=large_fft    time=1.468625s
+cpu_percent= 4 case=narrow_band  time=1.463195s
+cpu_percent= 4 total=5.207414s
+cpu_percent= 8 case=default      time=1.343388s
+cpu_percent= 8 case=small_mels   time=0.952611s
+cpu_percent= 8 case=large_fft    time=1.490906s
+cpu_percent= 8 case=narrow_band  time=1.483976s
+cpu_percent= 8 total=5.270881s
+cpu_percent=12 case=default      time=1.361657s
+cpu_percent=12 case=small_mels   time=0.989029s
+cpu_percent=12 case=large_fft    time=1.515411s
+cpu_percent=12 case=narrow_band  time=1.497240s
+cpu_percent=12 total=5.363337s
+
+| CPU % | default | small_mels | large_fft | narrow_band | Total |
+|---:|---:|---:|---:|---:|---:|
+| 4 | 1.323491 | 0.952103 | 1.468625 | 1.463195 | 5.207414 |
+| 8 | 1.343388 | 0.952611 | 1.490906 | 1.483976 | 5.270881 |
+| 12 | 1.361657 | 0.989029 | 1.515411 | 1.497240 | 5.363337 |

@@ -1,0 +1,49 @@
+Experiment: 003 CPU share tuning
+Slurm job: 299
+Node: hepnode2
+GPUs: 0,1
+cpu_percent= 0 case=default      time=1.327642s
+cpu_percent= 0 case=small_mels   time=0.920809s
+cpu_percent= 0 case=large_fft    time=1.429648s
+cpu_percent= 0 case=narrow_band  time=1.424347s
+cpu_percent= 0 total=5.102446s
+cpu_percent= 2 case=default      time=1.330596s
+cpu_percent= 2 case=small_mels   time=0.942785s
+cpu_percent= 2 case=large_fft    time=1.457310s
+cpu_percent= 2 case=narrow_band  time=1.447899s
+cpu_percent= 2 total=5.178589s
+cpu_percent= 4 case=default      time=1.340327s
+cpu_percent= 4 case=small_mels   time=0.938359s
+cpu_percent= 4 case=large_fft    time=1.443634s
+cpu_percent= 4 case=narrow_band  time=1.460857s
+cpu_percent= 4 total=5.183178s
+cpu_percent= 6 case=default      time=1.340936s
+cpu_percent= 6 case=small_mels   time=0.939256s
+cpu_percent= 6 case=large_fft    time=1.472705s
+cpu_percent= 6 case=narrow_band  time=1.448533s
+cpu_percent= 6 total=5.201430s
+cpu_percent= 8 case=default      time=1.344597s
+cpu_percent= 8 case=small_mels   time=0.959882s
+cpu_percent= 8 case=large_fft    time=1.504433s
+cpu_percent= 8 case=narrow_band  time=1.467149s
+cpu_percent= 8 total=5.276062s
+cpu_percent=10 case=default      time=1.358593s
+cpu_percent=10 case=small_mels   time=0.960559s
+cpu_percent=10 case=large_fft    time=1.470630s
+cpu_percent=10 case=narrow_band  time=1.477662s
+cpu_percent=10 total=5.267444s
+cpu_percent=12 case=default      time=1.349521s
+cpu_percent=12 case=small_mels   time=0.957514s
+cpu_percent=12 case=large_fft    time=1.507975s
+cpu_percent=12 case=narrow_band  time=1.469108s
+cpu_percent=12 total=5.284117s
+
+| CPU % | default | small_mels | large_fft | narrow_band | Total |
+|---:|---:|---:|---:|---:|---:|
+| 0 | 1.327642 | 0.920809 | 1.429648 | 1.424347 | 5.102446 |
+| 2 | 1.330596 | 0.942785 | 1.457310 | 1.447899 | 5.178589 |
+| 4 | 1.340327 | 0.938359 | 1.443634 | 1.460857 | 5.183178 |
+| 6 | 1.340936 | 0.939256 | 1.472705 | 1.448533 | 5.201430 |
+| 8 | 1.344597 | 0.959882 | 1.504433 | 1.467149 | 5.276062 |
+| 10 | 1.358593 | 0.960559 | 1.470630 | 1.477662 | 5.267444 |
+| 12 | 1.349521 | 0.957514 | 1.507975 | 1.469108 | 5.284117 |

@@ -1,0 +1,22 @@
+Experiment: 003_cpu_gpu_heterogeneous
+Slurm job: 293
+Node: hepnode3
+GPUs: 0,1
+CPU percent: 12
+OpenMP threads: 64
+GPU 0: NVIDIA L40 (UUID: GPU-46c80051-c403-22f9-a371-c0433ad3fd21)
+GPU 1: NVIDIA L40 (UUID: GPU-c5a888e4-c048-8022-fca6-3612b71d51d6)
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    1.355 | 10.293x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.969 | 14.310x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    1.524 | 21.298x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    1.523 | 21.605x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED

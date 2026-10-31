@@ -1,0 +1,32 @@
+Experiment: 008 single-node CPU pipelined
+Slurm job: 413
+Node: hepnode2
+OpenMP: 64/spread/cores
+Compiler: g++ (Ubuntu 15.2.0-16ubuntu1) 15.2.0
+
+[stage profile: default]
+run=1
+exp008_profile read_io=0.077190 normalize=0.112688 compute_float=0.356971 write=0.073283 total=0.624318 samples=24634880 frames=192397
+wall=0.64 user=14.10 sys=0.31 maxrss_kb=393668
+run=2
+exp008_profile read_io=0.058780 normalize=0.112777 compute_float=0.410922 write=0.089151 total=0.674386 samples=24634880 frames=192397
+wall=0.69 user=14.20 sys=0.32 maxrss_kb=393664
+run=3
+exp008_profile read_io=0.059513 normalize=0.112487 compute_float=0.357782 write=0.086159 total=0.618358 samples=24634880 frames=192397
+wall=0.64 user=13.93 sys=0.31 maxrss_kb=393524
+
+[official validation]
+Running test case: default...
+Running test case: small_mels...
+Running test case: large_fft...
+Running test case: narrow_band...
+---------------------------------------------------------------------------------------------------
+Test Case       | n_fft |  hop | mels |  f_min |  f_max | Max Abs Err | Status | Time (s) | Speedup
+---------------------------------------------------------------------------------------------------
+default         |  8192 |  128 |  256 |      0 |  22050 |    3.12e-02 |   PASS |    0.629 | 21.978x
+small_mels      |  8192 |  128 |   64 |      0 |  22050 |    1.17e-02 |   PASS |    0.470 | 29.291x
+large_fft       | 16384 |  128 |  256 |      0 |  22050 |    1.25e-01 |   PASS |    0.827 | 39.851x
+narrow_band     | 16384 |  128 |  256 |    300 |   8000 |    6.25e-02 |   PASS |    0.807 | 40.972x
+---------------------------------------------------------------------------------------------------
+
+Result: 4/4 PASSED
