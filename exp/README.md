@@ -43,7 +43,7 @@ Run the validation target with the same selector:
 make EXPERIMENT=001_packed_fft_sparse_mel_simd test
 ```
 
-Experiments 002–005 require remote CUDA/MPI libraries and have reproducible
+Experiments 002–006 require remote CUDA/MPI libraries and have reproducible
 Slurm launchers:
 
 ```bash
@@ -51,6 +51,7 @@ sbatch scripts/run_exp002.slurm
 sbatch scripts/run_exp003.slurm
 sbatch scripts/run_exp004_slurm_fast.slurm
 sbatch scripts/run_exp005_slurm_fast_2node.slurm
+sbatch scripts/run_exp006_slurm_fast_2node.slurm
 ```
 
 The `*_fast` launchers use native Slurm rank coordination and are the fastest
@@ -68,3 +69,4 @@ recorded together with each benchmark log.
 | 003 | `003_cpu_gpu_heterogeneous.cu` | Concurrent CPU OpenMP and dual-GPU execution on one node |
 | 004 | `004_mpi_multi_node.cpp` | Multi-node CPU implementation with an MPI path and a faster native Slurm rank backend |
 | 005 | `005_mpi_gpu_heterogeneous.cu` | Multi-node CPU + dual-GPU heterogeneous implementation with both MPI and native Slurm backends |
+| 006 | `006_multi_node_gpu_only.cu` | Two-node GPU-only implementation with local PCM range reads and two L40 GPUs per node |
