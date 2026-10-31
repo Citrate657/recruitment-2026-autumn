@@ -2,7 +2,9 @@ melspec
 src/*.o
 experiments/*.o
 __pycache__/
-.vscode
+.vscode/
 .codex-build/
 .chart-data-*/
 ~$*.pptx
+docs/archive/
+docs/presentation/
