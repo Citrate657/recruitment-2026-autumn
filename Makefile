@@ -4,8 +4,8 @@ LINKER = g++
 LINKER_FLAGS = -fopenmp
 INCLUDES = -I./include
 
-FINAL_SINGLE = 008_single_node_cpu_pipelined
-FINAL_THREE_NODE = 009_three_node_cpu_pipelined
+FINAL_SINGLE = exp008_single_node_cpu_pipelined
+FINAL_THREE_NODE = exp009_three_node_cpu_pipelined
 EXPERIMENT ?=
 
 ifneq ($(filter $(EXPERIMENT),$(FINAL_SINGLE) $(FINAL_THREE_NODE)),)
@@ -13,10 +13,10 @@ $(error Use 'make final-single' or 'make final-three-node' for final candidates)
 endif
 
 ifeq ($(strip $(EXPERIMENT)),)
-IMPLEMENTATION := exp/$(FINAL_SINGLE).cpp
+IMPLEMENTATION := experiments/$(FINAL_SINGLE).cpp
 SRCS := $(IMPLEMENTATION)
 else
-IMPLEMENTATION := exp/$(EXPERIMENT).cpp
+IMPLEMENTATION := experiments/$(EXPERIMENT).cpp
 SRCS := src/main.cpp $(IMPLEMENTATION)
 endif
 
@@ -42,12 +42,12 @@ baseline:
 
 final-single: $(EXEC)
 
-final-three-node: exp/$(FINAL_THREE_NODE).cpp $(INCS)
+final-three-node: experiments/$(FINAL_THREE_NODE).cpp $(INCS)
 	$(CXX_COMPILER) $(CXX_FLAGS) $(INCLUDES) \
-		exp/$(FINAL_THREE_NODE).cpp -o $(FINAL_THREE_NODE_EXEC)
+		experiments/$(FINAL_THREE_NODE).cpp -o $(FINAL_THREE_NODE_EXEC)
 
 clean:
-	rm -f $(wildcard src/*.o exp/*.o) \
+	rm -f $(wildcard src/*.o experiments/*.o) \
 		$(EXEC) $(FINAL_THREE_NODE_EXEC) $(BASELINE_EXEC)
 
 test: $(EXEC)
@@ -59,4 +59,4 @@ info:
 	@printf 'Final three-node executable: ./%s\n' '$(FINAL_THREE_NODE_EXEC)'
 
 format:
-	clang-format -i $(wildcard src/*.cpp exp/*.cpp exp/*.cu) $(INCS)
+	clang-format -i $(wildcard src/*.cpp experiments/*.cpp experiments/*.cu) $(INCS)
