@@ -553,7 +553,7 @@ sbatch scripts/experiments/exp009_validate_3node.slurm
 - [results/final-metrics.csv](../results/final-metrics.csv)
 - [results/relative-to-original.csv](../results/relative-to-original.csv)
 
-## 13. 参考资料与 AI 使用
+## 13. 参考资料与工具披露
 
 ### 13.1 项目内资料
 
@@ -572,13 +572,12 @@ sbatch scripts/experiments/exp009_validate_3node.slurm
 - [Slurm documentation](https://slurm.schedmd.com/documentation.html)
 - [librosa melspectrogram](https://librosa.org/doc/main/generated/librosa.feature.melspectrogram.html)
 
-### 13.3 AI 工具
+### 13.3 工具披露与原创性
 
-使用 Codex（DeepSeek-V4.1-Flash-1017，`reasoning_effort=max`）辅助代码阅读、
-优化方案讨论、C++/CUDA 草稿、Slurm 实验编排、结果整理和文档制作。
-
-所有正式性能数字来自实际 Slurm 作业。AI 没有生成、估计或替代任何正式数据。
-最终实现经过本地编译、官方四用例、日志复核和性能口径检查。
+使用 Codex 外接 DeepSeek-V4.1-Flash-1017，`reasoning_effort=max`，辅助
+源码理解、方案讨论、C++/CUDA 草稿、Slurm 实验编排和文档整理。最终代码与
+结论由本人理解并复核。所有正式性能数字来自实际 Slurm 作业，并经过本地编译、
+官方四用例、日志复核和性能口径检查。
 
 ## 14. 典型问题与经验
 

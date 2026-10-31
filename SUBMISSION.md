@@ -107,6 +107,12 @@ GPU 和 MPI 实验使用 `experiments/` 中对应源码及 `scripts/experiments/
 - 正式计算只在 `hepnode1~3` 上通过 Slurm 执行，`hepnode0` 仅用于登录和作业
   管理。
 
+## 工具披露
+
+使用 Codex 外接 DeepSeek-V4.1-Flash-1017，`reasoning_effort=max`，辅助源码
+理解、方案讨论、实现草稿、实验编排和文档整理。最终代码与结论由本人理解并
+复核，正式数据全部来自实际 Slurm 作业和保留日志。
+
 ## 相关提交
 
 ```text
