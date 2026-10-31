@@ -2,7 +2,7 @@
 
 > **提交入口**：实现与性能总结见 [SUBMISSION.md](SUBMISSION.md)，完整实验记录见
 > [docs/experiment-report.md](docs/experiment-report.md)，最终汇报 PPT 位于
-> [output/melspec-review-20261031-final-v6.pptx](output/melspec-review-20261031-final-v6.pptx)。
+> [output/melspec-review-20261031-template.pptx](output/melspec-review-20261031-template.pptx)。
 > 最终成果为单节点 exp008 和三节点 exp009。
 
 嗨，欢迎来做七边形的招新题！
