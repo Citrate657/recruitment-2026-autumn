@@ -38,10 +38,10 @@ job 413 和 job 415 的 `4/4 PASS` 负责证明。job 418 同时验证了默认
 |---|---|
 | [docs/EXECUTIVE-SUMMARY.md](docs/EXECUTIVE-SUMMARY.md) | 结论、最终指标、关键发现和边界 |
 | [docs/experiment-report.md](docs/experiment-report.md) | 001–009 的实现与完整实验记录 |
-| [docs/presentation-script.md](docs/presentation-script.md) | 15 页逐页讲稿、汇报节奏与 Q&A 速查 |
+| [docs/presentation-script.md](docs/presentation-script.md) | 16 页逐页讲稿、汇报节奏与 Q&A 速查 |
 | [docs/references-and-ai.md](docs/references-and-ai.md) | 参考资料、AI 工具使用和典型 bug |
 | [exp/README.md](exp/README.md) | 实验源码与构建入口 |
-| [output/melspec-review-20261031-final-v3.pptx](output/melspec-review-20261031-final-v3.pptx) | 最终汇报 PPT，共 15 页 |
+| [output/melspec-review-20261031-final-v4.pptx](output/melspec-review-20261031-final-v4.pptx) | 最终汇报 PPT，共 16 页 |
 
 PPT 已通过 Artifact Tool finalizer 和重新导入渲染检查。由于当前环境没有
 Microsoft PowerPoint 自动化，未进行本机 PowerPoint 人工打开验证。
