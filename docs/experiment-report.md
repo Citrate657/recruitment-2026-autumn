@@ -67,6 +67,21 @@
 均为 `4/4 PASS`。三节点 exp004 比两节点版本合计快 1.217x，成为当前总冠军；
 三节点 exp005 则仍慢于 64 线程 exp001。
 
+### 1.3 相对原实现
+
+为了避免运行完整原始 benchmark，原实现对照使用 default 用例的前
+1,000,000 个 PCM 样本。基线和实验使用同一输入前缀与相同程序接口：
+
+| 实验 | 原实现 | 实验实现 | 加速 | 口径 |
+|---|---:|---:|---:|---|
+| 001 | 61.662986 s | 0.084331 s | **731.206x** | 1M 样本前缀 |
+| 009 | 62.543557 s | 0.596358 s | **104.876x** | 1M 样本前缀，三节点 |
+
+该表只比较速度，不替代官方完整四用例正确性。exp009 使用 job 417 的同节点
+对照，日志为 `logs/final_baseline_vs_exp009_slurm-417.log`。exp001 在短前缀
+上的绝对加速更高，主要因为单节点启动成本低；完整官方四用例仍以 1.728x
+作为主性能结论。
+
 ## 2. 公共评测协议
 
 ### 2.1 基准定义
@@ -814,3 +829,33 @@ Log: logs/009_three_node_cpu_slurm-415.log
 ```
 
 不覆盖旧实验，不复用旧日志，不把本地测量冒充远程成绩。
+
+## 15. 参考资料、AI 工具与典型问题
+
+### 15.1 参考资料
+
+- 题目仓库的 `README.md`、`src/melspec.cpp`、`melspec.py`、
+  `include/melspec.h` 和 `validate.py`；
+- 官方 PCM 与 `data/expected` 四份期望输出；
+- NVIDIA CUDA Runtime 与 cuFFT 官方 API 文档；
+- OpenMP 和 GCC 优化选项文档；
+- Slurm `sbatch`、`srun`、`sacct`、`squeue` 文档；
+- 集群 `nvidia-smi`、`sinfo` 实测输出和第 4–15 节日志。
+
+### 15.2 AI 工具
+
+使用 OpenAI Codex（GPT-5）辅助代码阅读、优化方案讨论、实现草稿、Slurm
+脚本、主要实验执行、结果整理和文档/PPT 制作。所有正式性能数据来自实际
+Slurm 作业，没有使用生成数据冒充实测。最终实现均经过编译、官方用例、
+日志复核和性能口径检查。
+
+### 15.3 典型问题
+
+- **跨节点临时文件不可见**：benchmark 将 1M 输入放在 batch 节点 `/tmp`，
+  其他 rank 返回 143。改为共享目录输入后 job 417 通过。
+- **共享 ready 文件竞态**：固定输出路径可能读到上一轮 ready 状态。最终使用
+  每轮 64-bit token，由 rank 0 写入，其他 rank 确认后再写输出。
+- **NVCC 不识别 `-Wl,-rpath`**：CUDA 编译阶段报未知选项。改为通过
+  `LD_LIBRARY_PATH` 定位 CUDA 库，避免把链接器参数传给 NVCC。
+- **perf 权限受限**：`perf_event_paranoid=4` 禁止硬件计数器。改用阶段计时
+  driver，保留了有效 profile 数据。

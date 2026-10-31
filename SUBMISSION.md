@@ -18,7 +18,13 @@
 job 415 在三节点 Slurm 环境通过官方 `4/4 PASS`。性能基线是 exp001 的
 64 线程 spread 结果 `3.777 s`，exp009 相对基线的聚合加速为 `1.728x`。
 
-机器可读结果见 [results/final-metrics.csv](results/final-metrics.csv)。
+在相同的 1M 样本 default 前缀上，原实现为 `62.543557 s`，exp009 为
+`0.596358 s`，相对原实现加速 `104.876x`。该短前缀测试只用于速度对照，
+完整正确性由三节点 job 415 的 `4/4 PASS` 负责证明。
+
+机器可读结果见 [results/final-metrics.csv](results/final-metrics.csv)，
+相对原实现对照见
+[results/relative-to-original.csv](results/relative-to-original.csv)。
 
 ## 推荐阅读
 
@@ -26,9 +32,10 @@ job 415 在三节点 Slurm 环境通过官方 `4/4 PASS`。性能基线是 exp00
 |---|---|
 | [docs/EXECUTIVE-SUMMARY.md](docs/EXECUTIVE-SUMMARY.md) | 结论、最终指标、关键发现和边界 |
 | [docs/experiment-report.md](docs/experiment-report.md) | 001–009 的实现与完整实验记录 |
-| [docs/presentation-script.md](docs/presentation-script.md) | 11 页逐页讲稿与常见问答 |
+| [docs/presentation-script.md](docs/presentation-script.md) | 13 页逐页讲稿与常见问答 |
+| [docs/references-and-ai.md](docs/references-and-ai.md) | 参考资料、AI 工具使用和典型 bug |
 | [exp/README.md](exp/README.md) | 实验源码与构建入口 |
-| [output/melspec-review-20261031.pptx](output/melspec-review-20261031.pptx) | 最终汇报 PPT |
+| [output/melspec-review-20261031-v2.pptx](output/melspec-review-20261031-v2.pptx) | 最终汇报 PPT |
 
 PPT 已通过 Artifact Tool finalizer 和重新导入渲染检查。由于当前环境没有
 Microsoft PowerPoint 自动化，未进行本机 PowerPoint 人工打开验证。
@@ -95,6 +102,8 @@ sbatch scripts/run_exp009_slurm_fast_3node.slurm
 - 统一基线为 exp001 的 64 线程 spread 结果，不使用早期 16 线程的
   `7.572 s` 作为优化加速基准。
 - 正式正确性门限为 `rtol=1e-3`、`atol=1e-4`。
+- 原实现对照统一使用官方 PCM 的前 1,000,000 个样本，避免运行完整原始
+  benchmark 的高额耗时。
 - GPU 结果受 CUDA 驱动、cuFFT 和共享文件系统影响，不保证与日志逐位一致。
 
 ## 关键提交

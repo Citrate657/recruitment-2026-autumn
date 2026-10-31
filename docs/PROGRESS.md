@@ -20,6 +20,12 @@
   - 结果：baseline 61.662986 s，exp001 0.084331 s，731.206x。
   - 硬件：`hepnode2`，16 OpenMP 线程。
 
+- **exp009 相对原实现的 1M 样本加速比已实测。**
+  - job 416 首次测试因 batch 节点 `/tmp` 输入无法被其他 rank 读取而退出 143。
+  - job 417 改用共享输入目录：原实现 62.543557 s，exp009 0.596358 s，104.876x。
+  - 日志：`logs/final_baseline_vs_exp009_slurm-416_failed_nonshared_temp.log`
+           `logs/final_baseline_vs_exp009_slurm-417.log`
+
 - **CPU 线程数与绑核策略已实测。**
   - 命令（远程 Slurm 作业 275）：`scripts/run_cpu_scaling.slurm`
   - 结果：64 线程 spread 最优，四用例总耗时 3.776826 s；16 线程 spread 为 7.415062 s；32 线程 spread 为 5.248376 s。
@@ -127,9 +133,10 @@
 
 - **总结与汇报材料已完成。**
   - `docs/EXECUTIVE-SUMMARY.md`：完整结果、关键发现、可复现性和边界。
-  - `docs/presentation-script.md`：11 页逐页讲稿与常见问答。
-  - `output/melspec-review-20261031.pptx`：11 页可编辑 PPT，含 speaker notes。
-  - finalizer 通过：11 页、4 个原生图表、2 个原生表格，字体与布局 finding 为 0。
+  - `docs/presentation-script.md`：13 页逐页讲稿与常见问答。
+  - `output/melspec-review-20261031-v2.pptx`：13 页可编辑 PPT，含 speaker notes。
+  - `docs/references-and-ai.md`：参考资料、AI 工具和典型 bug。
+  - job 416 首次相对原实现测试因跨节点 `/tmp` 不可共享而退出 143；改用共享输入后 job 417 得到 `104.876x`。
 
 - **004 分布写入 + 局部 PCM 读取已通过两节点正确性验证。**
   - 验证命令（远程 Slurm 作业 317）：`python validate.py ./scripts/melspec_mpi_launcher.sh --runs 1`

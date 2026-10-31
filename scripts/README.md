@@ -7,6 +7,7 @@
 | `run_exp008_profile.slurm` | Build exp008, profile its data path, and validate on one node |
 | `run_exp009_slurm_fast_3node.slurm` | Build exp009 and validate on three nodes |
 | `run_exp006_slurm_fast_2node.slurm` | Build exp006 and validate on two GPU nodes |
+| `run_final_baseline_speedup.slurm` | Compare the original implementation and exp009 on the same 1M-sample prefix |
 
 ## Launchers
 

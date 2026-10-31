@@ -67,6 +67,11 @@ def main():
         default=0,
         help="Benchmark a deterministic prefix of the PCM instead of all samples",
     )
+    parser.add_argument(
+        "--skip-correctness",
+        action="store_true",
+        help="Skip expected-output checks for a custom input file",
+    )
     args = parser.parse_args()
 
     selected_names = (
@@ -102,7 +107,7 @@ def main():
 
             max_abs_error = None
             passed = None
-            if args.max_samples == 0:
+            if args.max_samples == 0 and not args.skip_correctness:
                 shape = shape_for_input(input_path, params)
                 result = np.frombuffer(experiment_bytes, dtype="<f4").reshape(shape)
                 expected_path = os.path.join(

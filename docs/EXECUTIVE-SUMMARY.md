@@ -8,6 +8,9 @@
 `2.733 s` 和 `2.186 s`，其中 exp009 相对 exp001 的 64 线程结果加速
 `1.728x`。
 
+在与原实现相同的 1M 样本 default 前缀上，exp009 从 `62.543557 s` 降至
+`0.596358 s`，加速 `104.876x`。
+
 ## 结论
 
 本工作围绕 4 个官方 melspec 用例完成了 CPU、GPU 和异构实现探索。所有正式
@@ -77,6 +80,7 @@ b71de64 feat: add two-node GPU-only exp006
 
 ## 汇报材料
 
-- `output/melspec-review-20261031.pptx`：11 页可编辑技术复盘 PPT
+- `output/melspec-review-20261031-v2.pptx`：13 页可编辑技术复盘 PPT
 - `docs/presentation-script.md`：逐页讲法与常见问答
+- `docs/references-and-ai.md`：参考来源、AI 工具说明和典型 bug
 - PPT 内每页均含 speaker notes，并记录对应的实验报告或 Slurm 日志来源

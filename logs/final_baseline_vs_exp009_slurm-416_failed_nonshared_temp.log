@@ -1,0 +1,34 @@
+Experiment: original implementation vs exp009
+Slurm job: 416
+Nodes: hepnode[1-3]
+Input: first 1,000,000 samples of data/audio.pcm
+rm -f src/main.o exp/001_packed_fft_sparse_mel_simd.o melspec
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/main.o -c src/main.cpp
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o src/melspec.o -c src/melspec.cpp
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -fopenmp -o melspec src/main.o src/melspec.o
+Benchmarking default...
+Traceback (most recent call last):
+  File "/home/wzt/melspec-eval-001/scripts/benchmark_experiments.py", line 151, in <module>
+    main()
+    ~~~~^^
+  File "/home/wzt/melspec-eval-001/scripts/benchmark_experiments.py", line 98, in main
+    experiment_time, experiment_bytes = run_binary(
+                                        ~~~~~~~~~~^
+        args.experiment, input_path, params, args.runs
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/home/wzt/melspec-eval-001/scripts/benchmark_experiments.py", line 36, in run_binary
+    subprocess.run(cmd, check=True, capture_output=True)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/wzt/.venvs/melspec/lib/python3.13/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['./scripts/melspec_slurm_launcher.sh', '/tmp/tmp1kxo29r8.pcm', '/tmp/tmptimma4ra.bin', '--sr', '96000', '--n_fft', '8192', '--hop_length', '128', '--n_mels', '256', '--f_min', '0.0', '--f_max', '22050.0']' returned non-zero exit status 143.
