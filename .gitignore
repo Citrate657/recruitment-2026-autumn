@@ -5,6 +5,5 @@ __pycache__/
 .vscode/
 .codex-build/
 .chart-data-*/
-~$*.pptx
 docs/archive/
-docs/presentation/
+~$*.pptx

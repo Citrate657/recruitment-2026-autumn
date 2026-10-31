@@ -7,17 +7,12 @@
 > 结论：单节点最终方案 exp008 为 `2.733 s`，三节点最终方案 exp009 为
 > `2.186 s`，两者均通过官方四个用例。
 
-本文档合并了优化过程笔记、分实验报告和最终总结。它面向第一次接触本项目的
-读者，重点说明每一步为什么做、具体怎么实现、产生了什么效果，以及背后的 HPC
-知识点。
+本文档合并了优化过程笔记、分实验报告和最终总结。它面向第一次接触本项目的读者，重点说明每一步为什么做、具体怎么实现、产生了什么效果，以及背后的 HPC 知识点。
 
 ## 阅读建议
 
-- 想快速看结果：阅读“最终结果”和“跨实验结论”。
-- 想看完整优化过程：从“原始实现为什么慢”顺序阅读。
-- 想准备答辩：结合 [presentation-script.md](presentation-script.md) 使用。
-- 想先补 Mel 算法基础：阅读
-  [reference/melspec-basics.md](reference/melspec-basics.md)。
+- 快速看结果：阅读“最终结果”和“跨实验结论”。
+- 看完整优化过程：从“原始实现为什么慢”顺序阅读。
 
 ## 目录
 
@@ -203,7 +198,7 @@ make EXPERIMENT=exp001_packed_fft_sparse_mel_simd
 
 ## 5. 代码演进关系
 
-![exp001–009 代码演进关系](assets/code-evolution.png)
+![exp001–009 代码演进关系](code-evolution.png)
 
 - baseline 是原始 `src/melspec.cpp`。
 - exp001 是所有 CPU 优化的数学基础。

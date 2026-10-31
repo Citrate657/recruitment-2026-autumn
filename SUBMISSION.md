@@ -29,7 +29,7 @@
 | [docs/melspec-performance-review.pptx](docs/melspec-performance-review.pptx) | 10 页最终汇报 PPT |
 | [docs/presentation-script.md](docs/presentation-script.md) | 与 PPT 对应的逐页讲稿、HPC 知识、优化推导和 Q&A |
 | [docs/optimization-report.md](docs/optimization-report.md) | 合并后的完整技术报告 |
-| [docs/reference/melspec-basics.md](docs/reference/melspec-basics.md) | PCM 到 Mel 输出的算法基础 |
+| [docs/melspec-basics.md](docs/melspec-basics.md) | PCM 到 Mel 输出的算法基础 |
 | [experiments/README.md](experiments/README.md) | 九个实验源码和构建入口 |
 | [scripts/README.md](scripts/README.md) | 最终验证、profile、调优和诊断脚本 |
 
@@ -57,8 +57,8 @@ docs/
   melspec-performance-review.pptx
   presentation-script.md      逐页讲稿和 Q&A
   optimization-report.md      完整技术报告
-  reference/                  算法基础
-  archive/                    开发计划和过程日志
+  melspec-basics.md           算法基础
+  code-evolution.png          exp001–009 代码演进图
 logs/                         官方 Slurm 原始输出
 results/                      机器可读结果
 ```
