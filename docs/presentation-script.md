@@ -113,7 +113,7 @@ flowchart LR
   E4 -.-> E9
 ```
 
-![exp001–009 代码演进关系](mermaid-diagram.png)
+![exp001–009 代码演进关系](assets/code-evolution.png)
 
 ## 第 6 页：基线实现的主要问题
 

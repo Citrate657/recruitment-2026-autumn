@@ -36,7 +36,8 @@ job 413 和 job 415 的 `4/4 PASS` 负责证明。job 418 同时验证了默认
 
 | 文件 | 内容 |
 |---|---|
-| [docs/EXECUTIVE-SUMMARY.md](docs/EXECUTIVE-SUMMARY.md) | 结论、最终指标、关键发现和边界 |
+| [docs/README.md](docs/README.md) | 文档索引与推荐阅读顺序 |
+| [docs/executive-summary.md](docs/executive-summary.md) | 结论、最终指标、关键发现和边界 |
 | [docs/experiment-report.md](docs/experiment-report.md) | 001–009 的实现与完整实验记录 |
 | [docs/presentation-script.md](docs/presentation-script.md) | 17 页逐页讲稿、汇报节奏与 Q&A 速查 |
 | [docs/references-and-ai.md](docs/references-and-ai.md) | 参考资料、AI 工具使用和典型 bug |

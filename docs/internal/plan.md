@@ -30,4 +30,4 @@
 - Use only Slurm `hepnode1~3` for compiled programs and validation.
 - `src/main.cpp`, `include/melspec.h`, `validate.py`, and `melspec.py` remain unchanged.
 - Every claimed success needs a reproducible command and captured log.
-- Update `docs/PROGRESS.md` after each checkpoint, failure, or key decision.
+- Update `docs/internal/progress.md` after each checkpoint, failure, or key decision.

@@ -31,7 +31,7 @@
 - `exp/001_packed_fft_sparse_mel_simd.cpp`：FFT、Mel 滤波器、分块、SIMD 和 OpenMP 优化实现；
 - `Makefile`：默认构建基准，通过 `EXPERIMENT=` 选择带编号的实验实现；
 - `slurm.job`：显式设置 OpenMP 线程数、CPU 绑定方式，并按实验名保存远程日志；
-- `docs/optimization-notes.md`：本说明。
+- `docs/technical/optimization-notes.md`：本说明。
 
 现有 `.gitignore` 的用户修改被保留，未创建任何 Git commit。
 

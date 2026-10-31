@@ -132,7 +132,7 @@
   - 日志：`logs/009_three_node_cpu_slurm-415.log`
 
 - **总结与汇报材料已完成。**
-  - `docs/EXECUTIVE-SUMMARY.md`：完整结果、关键发现、可复现性和边界。
+  - `docs/executive-summary.md`：完整结果、关键发现、可复现性和边界。
   - `docs/presentation-script.md`：17 页逐页讲稿、汇报节奏与 Q&A 速查。
   - `output/melspec-review-20261031-final-v5.pptx`：17 页可编辑 PPT，含 speaker notes。
   - `docs/references-and-ai.md`：参考资料、AI 工具和典型 bug。
