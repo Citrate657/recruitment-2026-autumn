@@ -1,3 +1,4 @@
 experiment,config,job,input_scope,baseline_s,experiment_s,speedup,notes,log
 001,single-node 64-thread CPU spread,187,default first 1000000 samples,61.662986,0.084331,731.206,same input prefix,logs/001_packed_fft_sparse_mel_simd_slurm-187.log
-009,three-node CPU pipelined,417,default first 1000000 samples,62.543557,0.596358,104.876,same input prefix on hepnode1-3,logs/final_baseline_vs_exp009_slurm-417.log
+008,single-node CPU pipelined,418,default first 1000000 samples,62.461028,0.043759,1427.391,finalist single-node comparison,logs/final_baseline_vs_finalists_slurm-418.log
+009,three-node CPU pipelined,418,default first 1000000 samples,62.336486,0.398901,156.271,finalist three-node comparison,logs/final_baseline_vs_finalists_slurm-418.log

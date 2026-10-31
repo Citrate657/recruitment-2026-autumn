@@ -1,0 +1,40 @@
+Experiment: original implementation vs exp009
+Slurm job: 418
+Nodes: hepnode[1-3]
+Input: first 1,000,000 samples of data/audio.pcm
+rm -f src/main.o src/melspec.o \
+	melspec melspec-final-three-node melspec-baseline
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include src/main.cpp src/melspec.cpp \
+	-o melspec-baseline
+src/main.cpp: In function ‘void write_output(const std::string&, const std::vector<double>&, int, int)’:
+src/main.cpp:47:23: warning: unused parameter ‘n_mels’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                   ~~~~^~~~~~
+src/main.cpp:47:35: warning: unused parameter ‘n_frames’ [-Wunused-parameter]
+   47 |                   int n_mels, int n_frames) {
+      |                               ~~~~^~~~~~~~
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include -o exp/008_single_node_cpu_pipelined.o -c exp/008_single_node_cpu_pipelined.cpp
+g++ -fopenmp -o melspec exp/008_single_node_cpu_pipelined.o
+g++ -std=c++17 -Wall -Wextra -O3 -march=native -fopenmp -I./include \
+	exp/009_three_node_cpu_pipelined.cpp -o melspec-final-three-node
+In file included from exp/009_three_node_cpu_pipelined.cpp:6:
+exp/008_single_node_cpu_pipelined.cpp:186:6: warning: ‘void {anonymous}::write_float_008(const std::string&, const std::vector<float>&)’ defined but not used [-Wunused-function]
+  186 | void write_float_008(const std::string& path,
+      |      ^~~~~~~~~~~~~~~
+exp/008_single_node_cpu_pipelined.cpp:70:6: warning: ‘void {anonymous}::read_pcm_008(const std::string&, std::vector<double>&, double&, double&)’ defined but not used [-Wunused-function]
+   70 | void read_pcm_008(const std::string& path, std::vector<double>& signal,
+      |      ^~~~~~~~~~~~
+
+[final single-node comparison]
+Benchmarking default...
+
+| Case | Baseline (s) | Experiment (s) | Speedup | Max abs error | Status |
+|---|---:|---:|---:|---:|---|
+| default | 62.461028 | 0.043759 | 1427.391x | N/A | N/A |
+
+[final three-node comparison]
+Benchmarking default...
+
+| Case | Baseline (s) | Experiment (s) | Speedup | Max abs error | Status |
+|---|---:|---:|---:|---:|---|
+| default | 62.336486 | 0.398901 | 156.271x | N/A | N/A |

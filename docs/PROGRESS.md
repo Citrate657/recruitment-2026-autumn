@@ -22,9 +22,10 @@
 
 - **exp009 相对原实现的 1M 样本加速比已实测。**
   - job 416 首次测试因 batch 节点 `/tmp` 输入无法被其他 rank 读取而退出 143。
-  - job 417 改用共享输入目录：原实现 62.543557 s，exp009 0.596358 s，104.876x。
+  - job 417 改用共享输入目录，验证了 exp009 对照流程。
+  - job 418 同时验证最终构建入口：exp008 为 1427.391x，exp009 为 156.271x。
   - 日志：`logs/final_baseline_vs_exp009_slurm-416_failed_nonshared_temp.log`
-           `logs/final_baseline_vs_exp009_slurm-417.log`
+           `logs/final_baseline_vs_finalists_slurm-418.log`
 
 - **CPU 线程数与绑核策略已实测。**
   - 命令（远程 Slurm 作业 275）：`scripts/run_cpu_scaling.slurm`
@@ -134,9 +135,9 @@
 - **总结与汇报材料已完成。**
   - `docs/EXECUTIVE-SUMMARY.md`：完整结果、关键发现、可复现性和边界。
   - `docs/presentation-script.md`：13 页逐页讲稿与常见问答。
-  - `output/melspec-review-20261031-v2.pptx`：13 页可编辑 PPT，含 speaker notes。
+  - `output/melspec-review-20261031-final.pptx`：13 页可编辑 PPT，含 speaker notes。
   - `docs/references-and-ai.md`：参考资料、AI 工具和典型 bug。
-  - job 416 首次相对原实现测试因跨节点 `/tmp` 不可共享而退出 143；改用共享输入后 job 417 得到 `104.876x`。
+  - job 416 首次相对原实现测试因跨节点 `/tmp` 不可共享而退出 143；改用共享输入后 job 418 得到 exp008 `1427.391x`、exp009 `156.271x`。
 
 - **004 分布写入 + 局部 PCM 读取已通过两节点正确性验证。**
   - 验证命令（远程 Slurm 作业 317）：`python validate.py ./scripts/melspec_mpi_launcher.sh --runs 1`
@@ -218,3 +219,4 @@
 | 2026-10-31 / 413 | `hepnode2` | exp008 单节点 CPU 流水化 | 官方四用例 | **0.629 / 0.470 / 0.827 / 0.807 s，4/4 PASS，合计 2.733 s** |
 | 2026-10-31 / 414 | `hepnode[1-3]` | exp004 三节点 profile | default profile | read ~0.065 / compute ~0.17 / write ~0.28 s，wall 0.69–0.88 s |
 | 2026-10-31 / 415 | `hepnode[1-3]` | exp009 三节点 CPU 流水化 | 官方四用例 | **0.599 / 0.275 / 0.661 / 0.651 s，4/4 PASS，合计 2.186 s，当前最快** |
+| 2026-10-31 / 418 | `hepnode[1-3]` | exp008 + exp009 对原实现，1M sample | 同输入速度对照 | exp008 1427.391x；exp009 156.271x |

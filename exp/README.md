@@ -62,6 +62,10 @@ validated multi-node variants.
 The executable is always `./melspec`, so the selected implementation should be
 recorded together with each benchmark log.
 
+The repository's default `make` target now builds the final single-node
+candidate, exp008. Build the final three-node candidate separately with
+`make final-three-node`.
+
 ## Current Experiments
 
 | ID | File | Summary |

@@ -8,8 +8,8 @@
 `2.733 s` 和 `2.186 s`，其中 exp009 相对 exp001 的 64 线程结果加速
 `1.728x`。
 
-在与原实现相同的 1M 样本 default 前缀上，exp009 从 `62.543557 s` 降至
-`0.596358 s`，加速 `104.876x`。
+在同口径 1M 样本 default 前缀上，exp008 相对原实现加速 `1427.391x`，
+exp009 相对原实现加速 `156.271x`。
 
 ## 结论
 
@@ -17,6 +17,11 @@
 结果均通过 `4/4 PASS`。在已验证方案中，三节点 CPU 流水化实验 exp009 最快，
 四用例合计 `2.186 s`，相比 exp001 的 64 线程 spread 结果 `3.777 s` 加速
 `1.728x`。
+
+最终提交保留两个方案：
+
+- **单节点最终成果 exp008**：四用例合计 `2.733 s`，相对 exp001 加速 `1.382x`。
+- **三节点最终成果 exp009**：四用例合计 `2.186 s`，相对 exp001 加速 `1.728x`。
 
 ## 最终性能
 
@@ -80,7 +85,7 @@ b71de64 feat: add two-node GPU-only exp006
 
 ## 汇报材料
 
-- `output/melspec-review-20261031-v2.pptx`：13 页可编辑技术复盘 PPT
+- `output/melspec-review-20261031-final.pptx`：13 页可编辑技术复盘 PPT
 - `docs/presentation-script.md`：逐页讲法与常见问答
 - `docs/references-and-ai.md`：参考来源、AI 工具说明和典型 bug
 - PPT 内每页均含 speaker notes，并记录对应的实验报告或 Slurm 日志来源

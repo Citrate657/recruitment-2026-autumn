@@ -5,7 +5,12 @@
 
 ## 最终结果
 
-当前最快的正式实现是 `exp/009_three_node_cpu_pipelined.cpp`：
+最终成果包含两个独立方案：
+
+- **单节点最终方案**：`exp/008_single_node_cpu_pipelined.cpp`
+- **三节点最终方案**：`exp/009_three_node_cpu_pipelined.cpp`
+
+三节点方案是总体最快实现：
 
 | 用例 | 耗时 |
 |---|---:|
@@ -18,9 +23,10 @@
 job 415 在三节点 Slurm 环境通过官方 `4/4 PASS`。性能基线是 exp001 的
 64 线程 spread 结果 `3.777 s`，exp009 相对基线的聚合加速为 `1.728x`。
 
-在相同的 1M 样本 default 前缀上，原实现为 `62.543557 s`，exp009 为
-`0.596358 s`，相对原实现加速 `104.876x`。该短前缀测试只用于速度对照，
-完整正确性由三节点 job 415 的 `4/4 PASS` 负责证明。
+在相同的 1M 样本 default 前缀上，exp008 相对原实现加速 `1427.391x`，
+exp009 加速 `156.271x`。该短前缀测试只用于速度对照，完整正确性分别由
+job 413 和 job 415 的 `4/4 PASS` 负责证明。job 418 同时验证了默认
+`make` 和 `make final-three-node` 构建入口。
 
 机器可读结果见 [results/final-metrics.csv](results/final-metrics.csv)，
 相对原实现对照见
@@ -35,7 +41,7 @@ job 415 在三节点 Slurm 环境通过官方 `4/4 PASS`。性能基线是 exp00
 | [docs/presentation-script.md](docs/presentation-script.md) | 13 页逐页讲稿与常见问答 |
 | [docs/references-and-ai.md](docs/references-and-ai.md) | 参考资料、AI 工具使用和典型 bug |
 | [exp/README.md](exp/README.md) | 实验源码与构建入口 |
-| [output/melspec-review-20261031-v2.pptx](output/melspec-review-20261031-v2.pptx) | 最终汇报 PPT |
+| [output/melspec-review-20261031-final.pptx](output/melspec-review-20261031-final.pptx) | 最终汇报 PPT |
 
 PPT 已通过 Artifact Tool finalizer 和重新导入渲染检查。由于当前环境没有
 Microsoft PowerPoint 自动化，未进行本机 PowerPoint 人工打开验证。
@@ -64,34 +70,31 @@ output/                       最终汇报 PPT
 git diff HEAD -- src/main.cpp include/melspec.h validate.py melspec.py
 ```
 
-构建并验证 exp001：
+默认 `make` 和 `make test` 构建单节点最终方案 exp008：
 
 ```bash
 make clean
-make EXPERIMENT=001_packed_fft_sparse_mel_simd -j64
+make -j64
 OMP_NUM_THREADS=64 \
 OMP_PROC_BIND=spread \
 OMP_PLACES=cores \
 python3 validate.py ./melspec --runs 3
 ```
 
-构建并验证单节点 exp008：
+构建三节点最终方案：
 
 ```bash
-g++ -std=c++17 -O3 -march=native -fopenmp -I./include \
-    exp/008_single_node_cpu_pipelined.cpp -o melspec_exp008
-
-OMP_NUM_THREADS=64 \
-OMP_PROC_BIND=spread \
-OMP_PLACES=cores \
-python3 validate.py ./melspec_exp008 --runs 3
+make final-three-node
 ```
 
-三节点 exp009 通过 Slurm 复现：
+在集群上验证三节点最终方案：
 
 ```bash
 sbatch scripts/run_exp009_slurm_fast_3node.slurm
 ```
+
+历史 CPU 实验仍可通过 `make EXPERIMENT=<编号与名称>` 构建。GPU 实验必须
+使用对应的 `nvcc` 和 Slurm 脚本。
 
 题目要求计算只在 `hepnode1~3` 上通过 Slurm 执行，`hepnode0` 仅用于登录和
 作业管理。

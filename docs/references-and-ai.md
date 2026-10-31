@@ -54,10 +54,10 @@
 logs/final_baseline_vs_exp009_slurm-416_failed_nonshared_temp.log
 ```
 
-成功日志：
+最终成功日志：
 
 ```text
-logs/final_baseline_vs_exp009_slurm-417.log
+logs/final_baseline_vs_finalists_slurm-418.log
 ```
 
 ### ready token 竞态
