@@ -13,7 +13,7 @@
 
 ## Milestones
 
-1. **001 baseline**: completed. Official validation and benchmark are in `docs/experiment-report.md`.
+1. **001 baseline**: completed. Official validation and benchmark are in `docs/optimization-report.md`.
 2. **002 dual-GPU cuFFT**: completed. Job 292 passed 4/4 and is faster than exp001 on every case.
 3. **003 CPU+GPU heterogeneous**: completed. Job 347 passed 4/4 with final 4% CPU share and is faster than exp001 on every case.
 4. **004 multi-node CPU**: two-node and three-node native Slurm runs are complete. Three-node job 359 passed 4/4 with `0.693 / 0.305 / 0.773 / 0.762 s` and `2.533 s` total, making it the current overall winner.
@@ -30,4 +30,4 @@
 - Use only Slurm `hepnode1~3` for compiled programs and validation.
 - `src/main.cpp`, `include/melspec.h`, `validate.py`, and `melspec.py` remain unchanged.
 - Every claimed success needs a reproducible command and captured log.
-- Update `docs/internal/progress.md` after each checkpoint, failure, or key decision.
+- Update `docs/archive/development-log.md` after each checkpoint, failure, or key decision.

@@ -1,7 +1,7 @@
 # Long-Running Task Progress
 
 > 本文件是开发过程记录，保留成功、失败和决策轨迹。提交评审的权威结论与
-> 最终指标以 `SUBMISSION.md` 和 `docs/experiment-report.md` 为准。
+> 最终指标以 `SUBMISSION.md` 和 `docs/optimization-report.md` 为准。
 
 ## 当前目标
 
@@ -132,10 +132,10 @@
   - 日志：`logs/009_three_node_cpu_slurm-415.log`
 
 - **总结与汇报材料已完成。**
-  - `docs/executive-summary.md`：完整结果、关键发现、可复现性和边界。
+  - `docs/optimization-report.md`：完整结果、关键发现、可复现性和边界。
   - `docs/presentation-script.md`：10 页逐页讲稿、汇报节奏与 Q&A 速查。
-  - `output/melspec-review-20261031-template.pptx`：迁移到学院模板的 10 页可编辑 PPT，含 speaker notes。
-  - `docs/references-and-ai.md`：参考资料、AI 工具和典型 bug。
+  - `docs/melspec-performance-review.pptx`：迁移到学院模板的 10 页可编辑 PPT，含 speaker notes。
+  - `docs/optimization-report.md`：参考资料、AI 工具和典型 bug。
   - job 416 首次相对原实现测试因跨节点 `/tmp` 不可共享而退出 143；改用共享输入后 job 418 得到 exp008 `1427.391x`、exp009 `156.271x`。
 
 - **004 分布写入 + 局部 PCM 读取已通过两节点正确性验证。**

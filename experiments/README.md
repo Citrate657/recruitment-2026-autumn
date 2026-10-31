@@ -1,81 +1,65 @@
-# Experiment Implementations
+# 实验源码
 
-`src/melspec.cpp` is the untouched reference implementation from the original
-repository. Experimental implementations live here as complete, compilable
-translation units rather than patches.
+`src/melspec.cpp` 是题目原始参考实现，不会被实验覆盖。九个实验作为完整、
+可编译的源码保存在本目录。
 
-## Naming
-
-Use a monotonically increasing prefix and a short change description:
+## 命名规则
 
 ```text
-NNN_short_description.cpp
+expNNN_short_description.cpp
+expNNN_short_description.cu
 ```
 
-Examples:
+已完成的实验不重写。新的假设使用新的编号，保证源码、日志和性能数字能够对应。
 
-```text
-001_packed_fft_sparse_mel_simd.cpp
-002_avx512_fft.cpp
-003_cuda_cufft.cpp
-```
+## 实验索引
 
-Do not rewrite an experiment after it has been benchmarked and logged. Create
-the next numbered file instead, so source and measurements stay traceable.
+| ID | 文件 | 主题 |
+|---|---|---|
+| 001 | `exp001_packed_fft_sparse_mel_simd.cpp` | 打包实数 FFT、稀疏 Mel、分块、SIMD、OpenMP |
+| 002 | `exp002_gpu_cufft.cu` | 单节点双 L40、cuFFT D2Z、GPU Mel |
+| 003 | `exp003_cpu_gpu_heterogeneous.cu` | 单节点 CPU OpenMP + 双 GPU 异构 |
+| 004 | `exp004_mpi_multi_node.cpp` | 多节点 CPU、MPI 功能版与原生 Slurm 性能版 |
+| 005 | `exp005_mpi_gpu_heterogeneous.cu` | 多节点 CPU+GPU 异构 |
+| 006 | `exp006_multi_node_gpu_only.cu` | 两节点纯 GPU |
+| 007 | `exp007_single_node_cpu_profiled.cpp` | exp001 分阶段 profile |
+| 008 | `exp008_single_node_cpu_pipelined.cpp` | 单节点最终方案 |
+| 009 | `exp009_three_node_cpu_pipelined.cpp` | 三节点最终方案 |
 
-## Building
+## 构建
 
-Build the reference implementation:
+原始基准：
 
 ```bash
+make baseline
+```
+
+单节点最终方案：
+
+```bash
+make clean
 make
 ```
 
-Build a numbered experiment:
+三节点最终方案：
 
 ```bash
-make EXPERIMENT=001_packed_fft_sparse_mel_simd
+make final-three-node
 ```
 
-Run the validation target with the same selector:
+指定 CPU 实验：
 
 ```bash
-make EXPERIMENT=001_packed_fft_sparse_mel_simd test
+make EXPERIMENT=exp001_packed_fft_sparse_mel_simd
 ```
 
-Experiments 002–009 require remote Slurm execution and have reproducible
-Slurm launchers:
+GPU 实验需要使用集群上的 CUDA 编译器，并通过对应 Slurm 脚本提交，参见
+`scripts/README.md`。
 
-```bash
-sbatch scripts/run_exp002.slurm
-sbatch scripts/run_exp003.slurm
-sbatch scripts/run_exp004_slurm_fast.slurm
-sbatch scripts/run_exp005_slurm_fast_2node.slurm
-sbatch scripts/run_exp006_slurm_fast_2node.slurm
-sbatch scripts/run_exp008_profile.slurm
-sbatch scripts/run_exp009_slurm_fast_3node.slurm
-```
+## 代码关系
 
-The `*_fast` launchers use native Slurm rank coordination and are the fastest
-validated multi-node variants.
+- exp007 和 exp008 复用 exp001 的 FFT 与 Mel 数学。
+- exp009 复用 exp008 的单节点数据路径。
+- exp009 同时采用 exp004 的本地帧划分、token 协调和分布式写入设计。
 
-The executable is always `./melspec`, so the selected implementation should be
-recorded together with each benchmark log.
-
-The repository's default `make` target now builds the final single-node
-candidate, exp008. Build the final three-node candidate separately with
-`make final-three-node`.
-
-## Current Experiments
-
-| ID | File | Summary |
-|---|---|---|
-| 001 | `001_packed_fft_sparse_mel_simd.cpp` | Precomputed packed real FFT, sparse Mel projection, tiled memory access, SIMD and OpenMP |
-| 002 | `002_gpu_cufft.cu` | Single-node dual-L40 execution with double-precision cuFFT and GPU Mel projection |
-| 003 | `003_cpu_gpu_heterogeneous.cu` | Concurrent CPU OpenMP and dual-GPU execution on one node |
-| 004 | `004_mpi_multi_node.cpp` | Multi-node CPU implementation with an MPI path and a faster native Slurm rank backend |
-| 005 | `005_mpi_gpu_heterogeneous.cu` | Multi-node CPU + dual-GPU heterogeneous implementation with both MPI and native Slurm backends |
-| 006 | `006_multi_node_gpu_only.cu` | Two-node GPU-only implementation with local PCM range reads and two L40 GPUs per node |
-| 007 | `007_single_node_cpu_profiled.cpp` | Exp001-derived profiling driver separating read, compute, conversion and write |
-| 008 | `008_single_node_cpu_pipelined.cpp` | Single-node direct float32 pipeline with parallel normalization and one OpenMP frame region |
-| 009 | `009_three_node_cpu_pipelined.cpp` | Three-node native Slurm distribution combined with the exp008 direct float32 pipeline |
+完整优化过程见 [docs/optimization-report.md](../docs/optimization-report.md)。

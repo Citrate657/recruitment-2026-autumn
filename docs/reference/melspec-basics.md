@@ -7,7 +7,7 @@
 3. 当前优化代码为什么和教科书上的流程不完全一样；
 4. 哪些细节最容易算错。
 
-更偏性能优化的内容见 [optimization-notes.md](optimization-notes.md)。
+更偏性能优化的内容见 [优化完整报告](../optimization-report.md)。
 
 ## 1. 一句话概括
 
@@ -404,7 +404,7 @@ $$W_N^k=e^{-i2\pi k/N}$$
 
 | 工作 | 代码位置 |
 |---|---|
-| 预先计算位反转和 twiddle | `exp/001_packed_fft_sparse_mel_simd.cpp` 的 `FftPlan` |
+| 预先计算位反转和 twiddle | `experiments/exp001_packed_fft_sparse_mel_simd.cpp` 的 `FftPlan` |
 | 读取帧、乘窗、按位反转写入 | `fill_bit_reversed_packed_frame()` |
 | 迭代 Cooley-Tukey FFT | `fft_from_bit_reversed()` |
 | 打包实数 FFT 的恢复和功率计算 | `real_fft_power()` |
@@ -970,7 +970,7 @@ atol = 1e-4
 1. 先用第 14 节的小例子理解形状；
 2. 再读第 6~11 节的数学流程；
 3. 然后对照 `compute_melspectrogram()` 看代码如何融合这些步骤；
-4. 最后读 [optimization-notes.md](optimization-notes.md)，理解为什么要把 FFT 降到半长度、为什么 Mel 矩阵要稀疏、为什么要分块和并行。
+4. 最后读 [优化完整报告](../optimization-report.md)，理解为什么要把 FFT 降到半长度、为什么 Mel 矩阵要稀疏、为什么要分块和并行。
 
 真正重要的是抓住三个不变量：
 
