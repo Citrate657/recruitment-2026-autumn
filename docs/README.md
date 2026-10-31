@@ -6,7 +6,7 @@
 |---|---|
 | [executive-summary.md](executive-summary.md) | 一页式结论、最终指标、关键发现和边界 |
 | [experiment-report.md](experiment-report.md) | exp001–009 的实现、正确性、性能和瓶颈分析 |
-| [presentation-script.md](presentation-script.md) | 17 页逐页讲法、时间分配和 Q&A 速查 |
+| [presentation-script.md](presentation-script.md) | 10 页逐页讲法、时间分配和 Q&A 速查 |
 | [references-and-ai.md](references-and-ai.md) | 参考来源、AI 工具使用说明和典型 bug |
 
 ## 技术资料
