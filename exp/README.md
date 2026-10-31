@@ -43,7 +43,7 @@ Run the validation target with the same selector:
 make EXPERIMENT=001_packed_fft_sparse_mel_simd test
 ```
 
-Experiments 002–006 require remote CUDA/MPI libraries and have reproducible
+Experiments 002–009 require remote Slurm execution and have reproducible
 Slurm launchers:
 
 ```bash
@@ -52,6 +52,8 @@ sbatch scripts/run_exp003.slurm
 sbatch scripts/run_exp004_slurm_fast.slurm
 sbatch scripts/run_exp005_slurm_fast_2node.slurm
 sbatch scripts/run_exp006_slurm_fast_2node.slurm
+sbatch scripts/run_exp008_profile.slurm
+sbatch scripts/run_exp009_slurm_fast_3node.slurm
 ```
 
 The `*_fast` launchers use native Slurm rank coordination and are the fastest
@@ -70,3 +72,6 @@ recorded together with each benchmark log.
 | 004 | `004_mpi_multi_node.cpp` | Multi-node CPU implementation with an MPI path and a faster native Slurm rank backend |
 | 005 | `005_mpi_gpu_heterogeneous.cu` | Multi-node CPU + dual-GPU heterogeneous implementation with both MPI and native Slurm backends |
 | 006 | `006_multi_node_gpu_only.cu` | Two-node GPU-only implementation with local PCM range reads and two L40 GPUs per node |
+| 007 | `007_single_node_cpu_profiled.cpp` | Exp001-derived profiling driver separating read, compute, conversion and write |
+| 008 | `008_single_node_cpu_pipelined.cpp` | Single-node direct float32 pipeline with parallel normalization and one OpenMP frame region |
+| 009 | `009_three_node_cpu_pipelined.cpp` | Three-node native Slurm distribution combined with the exp008 direct float32 pipeline |
