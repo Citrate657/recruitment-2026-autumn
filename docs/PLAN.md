@@ -22,7 +22,7 @@
 7. **006 two-node GPU-only**: completed and committed as `b71de64`. Job 410 used `hepnode1~2`, four L40 GPUs total, local PCM range reads per rank, and GPU-only frame processing. Official validation passed 4/4 with times `1.068 / 0.729 / 1.113 / 1.114 s`, all faster than exp001.
 8. **Single-node track**: exp007 profiling is complete. exp008 passed 4/4 with `2.733 s`, down from exp001's `3.777 s`; peak memory fell from about 779 MB to 394 MB.
 9. **Three-node CPU track**: exp004 job 359 passed in `2.533 s`. Profiling job 414 identified distributed output as the remaining bottleneck. exp009 combines that backend with the direct float32 path and passes 4/4 at `2.186 s`, currently the overall winner. Experiments 007–009 and reproducible scripts are committed as `5549edd`.
-10. **Summary and presentation**: expand the deck and script to explicitly cover every optimization step, profiling bottlenecks, references and AI usage, and notable implementation bugs. Do not start another optimization experiment.
+10. **Summary and presentation**: completed. The 15-slide deck and Markdown script cover baseline defects, every optimization step, profiling bottlenecks, references and AI use, notable bugs, two final candidates and a 14-question Q&A guide. Do not start another optimization experiment.
 
 ## Execution constraints
 

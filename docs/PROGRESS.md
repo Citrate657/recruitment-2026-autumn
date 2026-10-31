@@ -22,7 +22,6 @@
 
 - **exp009 相对原实现的 1M 样本加速比已实测。**
   - job 416 首次测试因 batch 节点 `/tmp` 输入无法被其他 rank 读取而退出 143。
-  - job 417 改用共享输入目录，验证了 exp009 对照流程。
   - job 418 同时验证最终构建入口：exp008 为 1427.391x，exp009 为 156.271x。
   - 日志：`logs/final_baseline_vs_exp009_slurm-416_failed_nonshared_temp.log`
            `logs/final_baseline_vs_finalists_slurm-418.log`
@@ -134,8 +133,8 @@
 
 - **总结与汇报材料已完成。**
   - `docs/EXECUTIVE-SUMMARY.md`：完整结果、关键发现、可复现性和边界。
-  - `docs/presentation-script.md`：13 页逐页讲稿与常见问答。
-  - `output/melspec-review-20261031-final.pptx`：13 页可编辑 PPT，含 speaker notes。
+  - `docs/presentation-script.md`：15 页逐页讲稿、汇报节奏与 Q&A 速查。
+  - `output/melspec-review-20261031-final-v3.pptx`：15 页可编辑 PPT，含 speaker notes。
   - `docs/references-and-ai.md`：参考资料、AI 工具和典型 bug。
   - job 416 首次相对原实现测试因跨节点 `/tmp` 不可共享而退出 143；改用共享输入后 job 418 得到 exp008 `1427.391x`、exp009 `156.271x`。
 
